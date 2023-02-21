@@ -3,6 +3,7 @@ const express = require('express')
 const app = express();
 const path = require('path');
 const cors = require('cors');
+const db = require('./models');
 const createError = require('http-errors');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
@@ -10,7 +11,15 @@ const bodyParser = require('body-parser');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json())
+
+db.sequelize
+    .sync()
+    .then(() => {
+        console.log('Synced db.');
+    })
+    .catch((err) => {
+        console.log('Failed to sync db: ' + err.message);
+    });
 
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -21,12 +30,12 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
-  res.status(err.status || 500).json({
-    status: 'error',
-    err: {
-      message: err.message,
-    },
-  });
+    res.status(err.status || 500).json({
+        status: 'error',
+        err: {
+            message: err.message,
+        },
+    });
 });
 
 const server = app.listen(8080, () => {
@@ -39,7 +48,7 @@ const server = app.listen(8080, () => {
 //     }
 //     console.log('Close the database connection.');
 // });
-  
+
 function handleShutdownGracefully() {
     console.info('closing server gracefully...');
     server.close(() => {
