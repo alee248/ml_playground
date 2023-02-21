@@ -28,6 +28,16 @@ export default (state = defaultState, action) => {
             newState.email = sessionStorage.getItem('email')
             break
 
+        case "logout":
+            sessionStorage.setItem('login', 0)
+            sessionStorage.setItem('username', '')
+            sessionStorage.setItem('uid', -1)
+            sessionStorage.setItem('email', '')
+            newState.login = sessionStorage.getItem('login')
+            newState.username = sessionStorage.getItem('username')
+            newState.uid = sessionStorage.getItem('uid')
+            newState.email = sessionStorage.getItem('email')
+
         default:
             break
     }

@@ -1,0 +1,128 @@
+:root {
+    --font-family: sans-serif;
+}
+
+.layout {
+    justify-content: center;
+    width: 200px;
+    height: 100%;
+    border-right: 1px dashed #BBBBBB;
+    margin-right: 30px;
+    padding: 30px;
+    transition: 0.5s;
+}
+
+.layout-closed {
+    justify-content: center;
+    width: 80px;
+    height: 100%;
+    border-right: 1px dashed #BBBBBB;
+    margin-right: 30px;
+    padding: 30px;
+    transition: 0.5s;
+}
+
+.close-btn {
+    position: fixed;
+    z-index: 5;
+    top: 33px;
+    left: 235px;
+    width: 50px;
+    height: 50px;
+    border: 1px dashed #BBBBBB;
+    border-radius: 50%;
+    shape-outside: circle(50% at 50% 50%);
+    background-color: white;
+    text-align: center;
+    line-height: 50px;
+    color: #BBBBBB;
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+.close-btn-closed {
+    position: fixed;
+    z-index: 5;
+    top: 33px;
+    left: 115px;
+    width: 50px;
+    height: 50px;
+    border: 1px dashed #BBBBBB;
+    border-radius: 50%;
+    shape-outside: circle(50% at 50% 50%);
+    background-color: white;
+    text-align: center;
+    line-height: 50px;
+    color: #BBBBBB;
+    font-size: 20px;
+    transition: 0.5s;
+}
+
+.sidebar-logo {
+    position: absolute;
+    text-align: center;
+    top: 45px;
+    left: 30px;
+    font-size: 25px;
+    font-family: var(--font-family);
+    font-weight: 300;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.sidebar-logo-out {
+    position: absolute;
+    text-align: center;
+    top: 45px;
+    left: 30px;
+    font-size: 25px;
+    font-family: var(--font-family);
+    font-weight: 300;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+
+.login-box {
+    background-color: #F7F7F7;
+    margin-top: 80px;
+    height: 80px;
+    border-radius: 10px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 18px;
+    font-family: var(--font-family);
+    color: #808080;
+    font-weight: 350;
+    transition: 0.2s;
+}
+
+.login-box:hover {
+    background-color: #dfdfdf;
+    color: #747474;
+    transition: 0.2s;
+}
+
+.login-box-closed {
+    background-color: #F7F7F7;
+    margin-top: 80px;
+    height: 80px;
+    border-radius: 50%;
+    line-height: 80px;
+    text-align: center;
+    font-size: 18px;
+    font-family: var(--font-family);
+    color: #808080;
+    font-weight: 350;
+    transition: 0.2s;
+}
+
+.login-box-closed:hover {
+    background-color: #dfdfdf;
+    color: #747474;
+    transition: 0.2s;
+}
+
+.userinfo {
+    overflow: hidden;
+    height: 80px;
+}

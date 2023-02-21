@@ -57,7 +57,6 @@ function Login(props) {
     const handleSubmit = () => {
 
         if (!disableLogin) {
-            console.log('here')
             // check if email is correct
             if (!isEmail(email)) {
                 setEmailAlert('Please enter a valid email address!')

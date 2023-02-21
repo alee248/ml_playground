@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
+import '../css/Home.css'
+import Sidebar from '../components/Sidebar';
 
 function Home(props) {
 
     return (
         <>
-            <div className="">home - {props.username}</div>
-            <Outlet />
+            <div className="home">
+                <div className="side-bar">
+                    <Sidebar />
+                </div>
+                <Outlet />
+            </div>
+            
         </>
     )
 }
