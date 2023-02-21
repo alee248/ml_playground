@@ -14,6 +14,10 @@ import '../css/Login.css'
 import { Card, Popover, Button as ANTDButton } from 'antd'
 import axios from 'axios'
 
+const isEmail = email => {
+    return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+}
+
 function Login(props) {
 
     const navigate = useNavigate()
@@ -27,6 +31,7 @@ function Login(props) {
     const [password, setPassword] = useState('')
     const [emailAlert, setEmailAlert] = useState('')
     const [passwordAlert, setPasswordAlert] = useState('')
+    const [disableLogin, setDisableLogin] = useState(false)
 
     const handleClickShowPassword = () => setShowPassword(show => !show)
 
@@ -35,26 +40,37 @@ function Login(props) {
             setPasswordAlert('')
         }
         setEmailAlert('')
+        if (passwordAlert === '') {
+            setDisableLogin(false)
+        }
         setEmail(e.target.value)
     }
 
     const handlePasswordChange = e => {
         setPasswordAlert('')
+        if (emailAlert === '') {
+            setDisableLogin(false)
+        }
         setPassword(e.target.value)
     }
 
     const handleSubmit = () => {
 
-        // check if email is correct
-        if (!email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-            setEmailAlert('Please enter a valid email address!')
-            if (password === '') {
-                setPasswordAlert('Please enter your password!')
+        if (!disableLogin) {
+            console.log('here')
+            // check if email is correct
+            if (!isEmail(email)) {
+                setEmailAlert('Please enter a valid email address!')
+                setDisableLogin(true)
             }
-        } else {
+
+            // check if password is empty
             if (password === '') {
                 setPasswordAlert('Please enter your password!')
-            } else {
+                setDisableLogin(true)
+            }
+
+            if (isEmail(email) && password !== '') {
                 axios({
                     method: 'post',
                     url: `${props.server}/api/user/login`,
@@ -70,10 +86,12 @@ function Login(props) {
                         navigate('/')
                     } else {
                         setPasswordAlert('Wrong email or password!')
+                        setDisableLogin(true)
                     }
                 })
             }
         }
+
     }
 
     return (
