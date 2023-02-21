@@ -1,30 +1,24 @@
-const http = require('http');
+const express = require('express')
+// const http = require('http');
 const app = express();
 const path = require('path');
 const cors = require('cors');
 const createError = require('http-errors');
-const loginRouter = require('./login');
+const routes = require('./routes');
+const bodyParser = require('body-parser');
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json())
 
-// connect to database
-let db = new sqlite3.Database('./data/data.db', (err) => {
-    if (err) {
-      console.error(err.message);
-    }
-    console.log('Connected to the database.');
-});
-
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.use('/login', loginRouter);
+app.use('/api', routes);
 
 app.use(function (req, res, next) {
     next(createError(404));
-  });
+});
 
 app.use(function (err, req, res, next) {
   res.status(err.status || 500).json({
@@ -54,4 +48,6 @@ function handleShutdownGracefully() {
     });
 }
 
-module.exports = db;
+// process.on('SIGINT', handleShutdownGracefully);
+// process.on('SIGTERM', handleShutdownGracefully);
+// process.on('SIGHUP', handleShutdownGracefully);
