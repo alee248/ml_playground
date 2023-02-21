@@ -21,7 +21,7 @@ router.post("/login", (req, res) => {
         if (rows.length === 0) {
             // if there's no record
             const user = {'Id': -1}
-            res.send(user)
+            res.send(user) 
         } else {
             const user = rows[0]
             res.send(user)
