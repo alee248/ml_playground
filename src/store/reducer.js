@@ -8,7 +8,8 @@ const defaultState = {
     login,
     username,
     uid,
-    email
+    email,
+    server: 'http://localhost:8080'
 }
 
 export default (state = defaultState, action) => {
@@ -20,7 +21,7 @@ export default (state = defaultState, action) => {
             sessionStorage.setItem('login', 1)
             sessionStorage.setItem('username', user.Username)
             sessionStorage.setItem('uid', user.Id)
-            sessionStorage.email('email', user.Email)
+            sessionStorage.setItem('email', user.Email)
             newState.login = sessionStorage.getItem('login')
             newState.username = sessionStorage.getItem('username')
             newState.uid = sessionStorage.getItem('uid')

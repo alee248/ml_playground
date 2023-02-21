@@ -6,7 +6,7 @@ function Home(props) {
 
     return (
         <>
-            <div className="">home</div>
+            <div className="">home - {props.username}</div>
             <Outlet />
         </>
     )

@@ -1,0 +1,99 @@
+
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom right, rgb(0, 70, 211), rgb(0, 130, 216), rgb(0, 187, 255));
+}
+
+.content {
+    box-shadow: 4px 4px 15px rgb(110, 110, 110);
+    background-color: rgb(245, 245, 245);
+    border-radius: 20px;
+    padding: 40px;
+    width: 360px;
+    height: 330px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -185px 0 0 -220px;
+}
+
+.login {
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: 550;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.line {
+    width: 96px;
+    height: 2px;
+    background-color: #3A62D7;
+    margin: auto;
+}
+
+.input {
+    margin: 20px 10px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.signup {
+    color: #3A62D7;
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.email-alert {
+    color: red;
+    margin-top: 5px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.password-alert {
+    color: red;
+    margin-top: 5px;
+    font-family: sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.logo {
+    height: 500px;
+    font-size: 40px;
+    font-family: sans-serif;
+    font-weight: 500;
+    color: rgb(245, 245, 245);
+    text-align: center;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+@media screen and (max-width: 560px) {
+    .content {
+        width: 300px;
+        padding: 30px;
+        margin: -180px 0 0 -180px;
+    }
+}
