@@ -1,0 +1,32 @@
+:root {
+    --font-family: sans-serif;
+    --dark-gray: #3c3c3c;
+    --light-gray: #BBBBBB;
+    --gray: #a7a7a7;
+}
+
+.navibar-content {
+    /* border: 1px solid black; */
+    display: flex;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 45px;
+    line-height: 45px;
+    font-size: 25px;
+    font-family: var(--font-family);
+    font-weight: 300;
+    color: var(--dark-gray)
+}
+
+.path {
+    margin-right: 10px;
+    color: var(--gray)
+}
+
+.path-last {
+    color: var(--dark-gray)
+}
+
+.right-arrow {
+    margin-right: 10px;
+}

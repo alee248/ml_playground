@@ -9,7 +9,7 @@
     background: linear-gradient(to bottom right, rgb(0, 70, 211), rgb(0, 130, 216), rgb(0, 187, 255));
 }
 
-.content {
+.login-content {
     box-shadow: 4px 4px 15px rgb(110, 110, 110);
     background-color: rgb(245, 245, 245);
     border-radius: 20px;

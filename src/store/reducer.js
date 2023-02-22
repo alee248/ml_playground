@@ -2,13 +2,14 @@ let login = sessionStorage.getItem('login') ? sessionStorage.getItem('login') : 
 let username = sessionStorage.getItem('username') ? sessionStorage.getItem('username') : null
 let uid = sessionStorage.getItem('uid') ? sessionStorage.getItem('uid') : -1
 let email = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : null
-
+let sidebarOpen = sessionStorage.getItem('sidebarOpen') ? sessionStorage.getItem('sidebarOpen') : 1
 
 const defaultState = {
     login,
     username,
     uid,
     email,
+    sidebarOpen,
     server: 'http://localhost:8080'
 }
 
@@ -37,6 +38,12 @@ export default (state = defaultState, action) => {
             newState.username = sessionStorage.getItem('username')
             newState.uid = sessionStorage.getItem('uid')
             newState.email = sessionStorage.getItem('email')
+            break
+
+        case "sidebar":
+            sessionStorage.setItem('sidebarOpen', state.sidebarOpen === '1' ? '0' : '1')
+            newState.sidebarOpen = sessionStorage.getItem('sidebarOpen')
+            break
 
         default:
             break

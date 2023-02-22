@@ -7,3 +7,8 @@
     left: 0;
     right: 0;
 }
+
+.main-page {
+    display: block;
+    width: 100%
+}

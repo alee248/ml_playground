@@ -10,6 +10,8 @@ const BaseRouter = () => (
         <Routes>
             <Route path='/' element={<Home/>}>
                 <Route path='/' element={<Projects />}></Route>
+                <Route path='/projects' element={<Projects />}></Route>
+                <Route path='/projects/:pid' element={<Projects />}></Route>
             </Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path="/*" element={<Error />}></Route>

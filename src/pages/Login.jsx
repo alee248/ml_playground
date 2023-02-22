@@ -96,7 +96,7 @@ function Login(props) {
     return (
         <div className='background'>
             <div className="logo">MLPlayground</div>
-            <div className="content">
+            <div className="login-content">
                 <div className="login">Login</div>
                 <div className="line"></div>
                 <div className="input">

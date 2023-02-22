@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import '../css/Projects.css'
 
 function Projects(props) {
 
     return (
         <>
-            <div className="">projects</div>
+            <div className="proj-content">projects page</div>
         </>
     )
 }

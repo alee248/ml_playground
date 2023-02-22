@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import '../css/Home.css'
 import Sidebar from '../components/Sidebar';
+import SearchBar from '../components/SearchBar';
+import NaviBar from '../components/NaviBar';
 
 function Home(props) {
 
@@ -12,7 +14,12 @@ function Home(props) {
                 <div className="side-bar">
                     <Sidebar />
                 </div>
-                <Outlet />
+                <div className="main-page">
+                    <SearchBar />
+                    <NaviBar />
+                    <Outlet />
+                </div>
+                
             </div>
             
         </>
@@ -24,6 +31,7 @@ const mapStateToProps = (state) => {
         login: state.login,
         uid: state.uid,
         username: state.username,
+        sidebarOpen: state.sidebarOpen,
         email: state.email
     }
 }

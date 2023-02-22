@@ -2,45 +2,78 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import '../css/Sidebar.css'
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { LeftOutlined, RightOutlined, ProjectOutlined, UserOutlined, SlidersOutlined } from '@ant-design/icons';
 
 function Sidebar(props) {
 
     const navigate = useNavigate()
 
-    const [isOpen, setIsOpen] = useState(true)
-
 
     const handleClose = () => {
-        setIsOpen(!isOpen)
+        props.handleSidebar()
+    }
+
+    const handleProjects = () => {
+        if (props.login) {
+            navigate('/projects')
+        }
+    }
+
+    const handleModels = () => {
+        if (props.login) {
+            navigate('/models')
+        }
+    }
+
+    const handleContributors = () => {
+        // TODO
     }
 
     const handleUser = () => {
-        if (props.login === '0') {
+        if (!props.login) {
             // if not logged in
             navigate('/login')
         } else {
             // TODO: navigate to userinfo
-            
+
             // This is only temp code
-            console.log('here')
             props.handleLogout()
         }
     }
 
     return (
         <>
-            <div className={isOpen ? 'close-btn' : 'close-btn-closed'} onClick={handleClose}>{isOpen ? <LeftOutlined /> : <RightOutlined />}</div>
-            <div className={isOpen ? 'layout' : 'layout-closed'}>
+            <div className={props.sidebarOpen ? 'close-btn' : 'close-btn-closed'} onClick={handleClose}>{props.sidebarOpen ? <LeftOutlined /> : <RightOutlined />}</div>
+            <div className={props.sidebarOpen ? 'layout' : 'layout-closed'}>
                 <div className="logo-area">
-                    <div className={`sidebar-logo${isOpen ? '' : '-out'}`} style={{width: '200px'}}>MLPlayground</div>
-                    <div className={`sidebar-logo${isOpen ? '-out' : ''}`} style={{width: '80px'}}>MLP</div>
+                    <div className={`sidebar-logo${props.sidebarOpen ? '' : '-out'}`} style={{ width: '200px' }}>MLPlayground</div>
                 </div>
 
-                <div className={`login-box${isOpen ? '' : '-closed'}`} onClick={handleUser}>
-                    {props.login === '0' ? 'login' : (
-                        <div className="userinfo">{props.username}</div>
+                <div className={`login-box${props.sidebarOpen ? '' : '-closed'}`} onClick={handleUser}>
+                    {!props.login ? 'login' : (
+                        <div className={`userinfo${props.sidebarOpen ? '' : '-closed'}`}>{props.sidebarOpen ? props.username : props.username.charAt(0).toUpperCase()}</div>
                     )}
+                </div>
+
+                <div className='side-btns'>
+                    <div className={`side-btn${props.login ? '' : '-disabled'}`} onClick={handleProjects}>
+                        <div className={`tab-icon${props.login ? '' : '-disabled'}${props.sidebarOpen ? '' : '-closed'}`}>
+                            < ProjectOutlined />
+                        </div>
+                        <div className={`tab-text${props.login ? '' : '-disabled'}${props.sidebarOpen ? '' : '-closed'}`}>Projects</div>
+                    </div>
+                    <div className={`side-btn${props.login ? '' : '-disabled'}`} onClick={handleModels}>
+                        <div className={`tab-icon${props.login ? '' : '-disabled'}${props.sidebarOpen ? '' : '-closed'}`}>
+                            <SlidersOutlined />
+                        </div>
+                        <div className={`tab-text${props.login ? '' : '-disabled'}${props.sidebarOpen ? '' : '-closed'}`}>Models</div>
+                    </div>
+                    <div className={`side-btn${props.login ? '' : '-disabled'}`} onClick={handleContributors}>
+                        <div className={`tab-icon${props.login ? '' : '-disabled'}${props.sidebarOpen ? '' : '-closed'}`}>
+                            <UserOutlined />
+                        </div>
+                        <div className={`tab-text${props.login ? '' : '-disabled'}${props.sidebarOpen ? '' : '-closed'}`}>Contributors</div>
+                    </div>
                 </div>
             </div>
         </>
@@ -49,10 +82,11 @@ function Sidebar(props) {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.login,
+        login: parseInt(state.login),
         uid: state.uid,
         username: state.username,
         email: state.email,
+        sidebarOpen: parseInt(state.sidebarOpen),
         server: state.server
     }
 }
@@ -62,6 +96,13 @@ const mapDispatchToProps = (dispatch) => {
         handleLogout() {
             const action = {
                 type: 'logout'
+            }
+            dispatch(action)
+        },
+
+        handleSidebar() {
+            const action = {
+                type: 'sidebar'
             }
             dispatch(action)
         }

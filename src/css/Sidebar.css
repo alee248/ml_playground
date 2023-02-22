@@ -1,12 +1,14 @@
 :root {
     --font-family: sans-serif;
+    --dark-gray: #3c3c3c;
+    --light-gray: #BBBBBB;
 }
 
 .layout {
     justify-content: center;
     width: 200px;
     height: 100%;
-    border-right: 1px dashed #BBBBBB;
+    border-right: 1px dashed var(--light-gray);
     margin-right: 30px;
     padding: 30px;
     transition: 0.5s;
@@ -16,44 +18,44 @@
     justify-content: center;
     width: 80px;
     height: 100%;
-    border-right: 1px dashed #BBBBBB;
+    border-right: 1px dashed var(--light-gray);
     margin-right: 30px;
-    padding: 30px;
+    padding: 10px;
     transition: 0.5s;
 }
 
 .close-btn {
-    position: fixed;
+    position: absolute;
     z-index: 5;
     top: 33px;
     left: 235px;
     width: 50px;
     height: 50px;
-    border: 1px dashed #BBBBBB;
+    border: 1px dashed var(--light-gray);
     border-radius: 50%;
     shape-outside: circle(50% at 50% 50%);
     background-color: white;
     text-align: center;
     line-height: 50px;
-    color: #BBBBBB;
+    color: var(--light-gray);
     font-size: 20px;
     transition: 0.5s;
 }
 
 .close-btn-closed {
-    position: fixed;
+    position: absolute;
     z-index: 5;
     top: 33px;
-    left: 115px;
+    left: 75px;
     width: 50px;
     height: 50px;
-    border: 1px dashed #BBBBBB;
+    border: 1px dashed var(--light-gray);
     border-radius: 50%;
     shape-outside: circle(50% at 50% 50%);
     background-color: white;
     text-align: center;
     line-height: 50px;
-    color: #BBBBBB;
+    color: var(--light-gray);
     font-size: 20px;
     transition: 0.5s;
 }
@@ -66,7 +68,8 @@
     font-size: 25px;
     font-family: var(--font-family);
     font-weight: 300;
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 0.7s ease-in-out;
+    color: var(--dark-gray)
 }
 
 .sidebar-logo-out {
@@ -83,46 +86,150 @@
 
 
 .login-box {
-    background-color: #F7F7F7;
+    background-color: #367fff;
+    color: white;
     margin-top: 80px;
     height: 80px;
+    width: 200px;
     border-radius: 10px;
     line-height: 80px;
     text-align: center;
     font-size: 18px;
     font-family: var(--font-family);
-    color: #808080;
     font-weight: 350;
-    transition: 0.2s;
+    transition: 0.4s;
 }
 
 .login-box:hover {
-    background-color: #dfdfdf;
-    color: #747474;
+    background-color: #669dfd;
     transition: 0.2s;
 }
 
 .login-box-closed {
-    background-color: #F7F7F7;
+    background-color: #367fff;
+    color: white;
     margin-top: 80px;
-    height: 80px;
+    margin-left: 5px;
+    height: 70px;
+    width: 70px;
     border-radius: 50%;
-    line-height: 80px;
+    line-height: 70px;
     text-align: center;
-    font-size: 18px;
+    font-size: 15px;
     font-family: var(--font-family);
-    color: #808080;
     font-weight: 350;
-    transition: 0.2s;
+    transition: 0.4s;
 }
 
 .login-box-closed:hover {
-    background-color: #dfdfdf;
-    color: #747474;
+    background-color: #669dfd;
+    color: white;
     transition: 0.2s;
 }
 
 .userinfo {
     overflow: hidden;
     height: 80px;
+}
+
+.userinfo-closed {
+    height: 80px;
+    font-size: 25px;
+}
+
+.side-btns {
+    margin-top: 30px;
+    color: var(--dark-gray);
+}
+
+.side-btn {
+    display: flex;
+    margin-top: 15px;
+    padding-left: 10px;
+    /* border: 1px solid black; */
+    height: 65px;
+    line-height: 65px;
+    border-radius: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.side-btn:hover {
+    background-color: #e6e6e6;
+    transition: 0.3s;
+}
+
+.side-btn-disabled {
+    display: flex;
+    margin-top: 15px;
+    padding-left: 10px;
+    /* border: 1px solid black; */
+    height: 65px;
+    line-height: 65px;
+    border-radius: 8px;
+}
+
+.tab-icon {
+    color: var(--dark-gray);
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.tab-icon-closed {
+    color: var(--dark-gray);
+    font-size: 25px;
+    margin-left: 17px;
+    transition: 0.3s;
+}
+
+.tab-icon-disabled {
+    color: var(--light-gray);
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.tab-icon-disabled-closed {
+    color: var(--light-gray);
+    font-size: 25px;
+    margin-left: 17px;
+    transition: 0.3s;
+}
+
+
+.tab-text {
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: var(--font-family);
+    font-weight: 300;
+    color: var(--dark-gray);
+    transition: 0.3s;
+}
+
+.tab-text-closed {
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: var(--font-family);
+    font-weight: 300;
+    color: var(--dark-gray);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.tab-text-disabled {
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: var(--font-family);
+    font-weight: 300;
+    color: var(--light-gray);
+    transition: 0.3s;
+}
+
+.tab-text-disabled-closed {
+    margin-left: 10px;
+    font-size: 20px;
+    font-family: var(--font-family);
+    font-weight: 300;
+    color: var(--light-gray);
+    opacity: 0;
+    transition: 0.3s;
 }
