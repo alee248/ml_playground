@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router();
 const db = require('../models');
 
+// get all projects
 router.get('/', (req, res) => {
     db.Project.findAll({
       attributes: ['Id', 'Title', 'Description']
