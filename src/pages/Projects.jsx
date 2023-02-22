@@ -18,19 +18,6 @@ function Projects(props) {
         })
     }, [])
 
-    // const projects = [
-    //     {
-    //         Id: 0,
-    //         Title: 'Atrial Fibrillation',
-    //         Description: 'This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. This is Afib. '
-    //     },
-    //     {
-    //         Id: 1,
-    //         Title: 'Atrial Fibrillation 2',
-    //         Description: 'This is Afib 2'
-    //     }
-    // ]
-
     const navigate = useNavigate()
 
     const handleMore = e => {
