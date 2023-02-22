@@ -1,13 +1,26 @@
-:root {
-    --font-family: sans-serif;
-    --dark-gray: #3c3c3c;
-    --light-gray: #BBBBBB;
-    --gray: #a7a7a7;
-    --content-color: #7d7d7d;
-}
-
 .proj-pg-content {
     margin-left: 20px;
     margin-right: 50px;
     font-family: var(--font-family);
 }
+
+.proj-pg-title {
+    color: var(--dark-gray);
+    text-align: center;
+    font-size: 25px;
+    margin-top: 30px;
+}
+
+.proj-pg-head {
+    color: var(--subtitle-color);
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.proj-pg-text {
+    color: var(--content-color);
+    line-height: var(--content-line-height);
+}
+

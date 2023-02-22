@@ -12,7 +12,7 @@ function Projects(props) {
     useEffect(() => {
         axios({
             method: 'get',
-            url: `${props.server}/api/projects/`
+            url: `${props.server}/api/projects`
         }).then(res => {
             setProjects(res.data)
         })
