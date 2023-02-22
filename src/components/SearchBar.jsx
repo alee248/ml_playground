@@ -15,6 +15,7 @@ function SearchBar() {
 
     const handleSearch = () => {
         // TODO
+        console.log(input)
     }
 
     return (

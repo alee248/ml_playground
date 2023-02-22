@@ -1,0 +1,13 @@
+:root {
+    --font-family: sans-serif;
+    --dark-gray: #3c3c3c;
+    --light-gray: #BBBBBB;
+    --gray: #a7a7a7;
+    --content-color: #7d7d7d;
+}
+
+.proj-pg-content {
+    margin-left: 20px;
+    margin-right: 50px;
+    font-family: var(--font-family);
+}

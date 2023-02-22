@@ -8,8 +8,9 @@
 .navibar-content {
     /* border: 1px solid black; */
     display: flex;
-    margin-left: 20px;
-    margin-bottom: 20px;
+    margin: 0px 50px 20px 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--light-gray);
     height: 45px;
     line-height: 45px;
     font-size: 25px;
@@ -20,7 +21,8 @@
 
 .path {
     margin-right: 10px;
-    color: var(--gray)
+    color: var(--gray);
+    cursor: pointer;
 }
 
 .path-last {

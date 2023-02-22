@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/NaviBar.css'
 import { RightOutlined } from '@ant-design/icons';
@@ -11,6 +11,8 @@ function FirstLetterCap (word) {
 function NaviBar(props) {
     
     const location = useLocation()
+    const navigate = useNavigate()
+
     let pathname = location.pathname
     let paths = []
 
@@ -21,6 +23,15 @@ function NaviBar(props) {
         paths.shift()
     }
 
+    const handleNavigate = e => {
+        const index = e.target.id
+        let url = '/'
+        for (let i=0; i<=index; i++) {
+            url += paths[i].toLowerCase()
+        }
+        navigate(url)
+    }
+
     return (
         <>
             <div className="navibar-content">
@@ -28,7 +39,7 @@ function NaviBar(props) {
                     return (
                         <div key={index} style={{display: 'flex'}}>
                             <div className="right-arrow" hidden={index === 0 ? true : false}><RightOutlined/></div>
-                            <div className={`path${index === paths.length - 1 ? '-last' : ''}`}>{FirstLetterCap(path)}</div>
+                            <div className={`path${index === paths.length - 1 ? '-last' : ''}`} id={index} onClick={handleNavigate}>{FirstLetterCap(path)}</div>
                         </div>
                         
                     )

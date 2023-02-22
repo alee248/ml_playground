@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MouseEvent } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -11,7 +11,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import '../css/Login.css'
-import { Card, Popover, Button as ANTDButton } from 'antd'
+import { Popover, Button as ANTDButton } from 'antd'
 import axios from 'axios'
 
 const isEmail = email => {
@@ -143,7 +143,7 @@ function Login(props) {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.login,
+        login: parseInt(state.login),
         uid: state.uid,
         username: state.username,
         email: state.email,
