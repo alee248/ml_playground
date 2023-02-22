@@ -28,7 +28,7 @@ function NaviBar(props) {
                     return (
                         <div key={index} style={{display: 'flex'}}>
                             <div className="right-arrow" hidden={index === 0 ? true : false}><RightOutlined/></div>
-                            <a className={`path${index === paths.length - 1 ? '-last' : ''}`}>{FirstLetterCap(path)}</a>
+                            <div className={`path${index === paths.length - 1 ? '-last' : ''}`}>{FirstLetterCap(path)}</div>
                         </div>
                         
                     )
