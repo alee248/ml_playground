@@ -10,6 +10,13 @@
     --content-line-height: 28px;
     --red: rgb(255, 71, 71);
     --red-hover: rgb(255, 123, 123);
+    --green: rgb(54, 172, 54);
+    --green-hover: rgb(98, 185, 98);
+    --lg-green: linear-gradient(to bottom right, rgb(46, 145, 46), rgb(87, 190, 87))
+}
+
+.color {
+    color: rgb(87, 190, 87);
 }
 
 .home {

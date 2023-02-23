@@ -58,5 +58,128 @@
 }
 
 .file-dropbox {
+    margin-top: 10px;
+    height: 190px;
+    opacity: 100;
+    transition: 0.3s;
+}
+
+.file-dropbox-close {
+    margin-top: 10px;
+    height: 0px;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.data-not-saved-note {
+    color: var(--red);
+    height: 21px;
     margin-top: 20px;
+    transition: 0.3s;
+}
+
+.data-not-saved-note-close {
+    color: var(--red);
+    height: 21px;
+    overflow: hidden;
+    margin-top: 0px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.data-info {
+    margin-top: 10px;
+    height: 19px;
+    color: var(--content-color);
+    transition: 0.3s;
+}
+
+.data-info-close {
+    margin-top: 0px;
+    height: 0px;
+    overflow: hidden;
+    color: var(--content-color);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.link {
+    color: var(--blue);
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.link:hover {
+    color: var(--blue-hover);
+    transition: 0.3s;
+}
+
+.success {
+    margin-top: 20px;
+    text-align: center;
+    height: 300px;
+    font-size: 30px;
+    transition: 0.3s;
+}
+
+.success-close {
+    margin-top: 0px;
+    text-align: center;
+    height: 0;
+    font-size: 10px;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.success-info {
+    background: var(--lg-green);
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
+    font-family: var(--font-family);
+}
+
+.confirm-btn-area {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+}
+
+.confirm-btn {
+    border: 1px solid var(--green);
+    border-radius: 10px;
+    color: var(--green);
+    font-size: 20px;
+    width: 100px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.confirm-btn:hover {
+    border: 1px solid var(--green-hover);
+    color: var(--green-hover);
+    background-color: rgb(245, 245, 245);
+    transition: 0.3s;
+}
+
+.result-btn {
+    margin-left: 20px;
+    border: 1px solid var(--blue);
+    border-radius: 10px;
+    color: var(--blue);
+    font-size: 20px;
+    width: 100px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.result-btn:hover {
+    border: 1px solid var(--blue-hover);
+    color: var(--blue-hover);
+    background-color: rgb(245, 245, 245);
+    transition: 0.3s;
 }
