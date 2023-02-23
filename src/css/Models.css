@@ -1,29 +1,38 @@
-.proj-content {
+.model-content {
     margin-left: 20px;
     margin-right: 50px;
     font-family: var(--font-family);
 }
 
-.project {
+.model {
     margin-bottom: 30px;
     padding: 10px;
     border-bottom: 1px dashed var(--light-gray);
 }
 
-.proj-title {
+.model-title {
     text-align: center;
     color: var(--dark-gray);
     font-size: 20px;
 }
 
-.proj-desc {
+.model-detail-head {
+    color: var(--subtitle-color);
+    font-weight: 400;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.model-detail {
     color: var(--content-color);
     margin-top: 20px;
     text-indent: 20px;
     line-height: var(--content-line-height);
 }
 
-.proj-btn-area {
+.model-btn-area {
     display: flex;
     margin-top: 30px;
     color: var(--content-color);
@@ -31,7 +40,7 @@
     line-height: 35px;
 }
 
-.proj-cont {
+.model-cont {
     /* background-color: black; */
     width: 90%;
 

@@ -17,7 +17,7 @@
     width: 85%;
     border-radius: 25px;
     line-height: 50px;
-    color:var(--search-input-color);
+    color:var(--content-color);
 }
 
 .search-icon {
@@ -33,7 +33,7 @@
     background-color: var(--search-bar-background-color);
     border: 0px;
     outline: none;
-    color: var(--search-input-color);
+    color: var(--content-color);
     font-size: 16px;
 }
 

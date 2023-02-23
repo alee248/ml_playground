@@ -1,13 +1,7 @@
-:root {
-    --font-family: sans-serif;
-    --dark-gray: #3c3c3c;
-    --light-gray: #BBBBBB;
-}
-
 .layout {
     justify-content: center;
     width: 200px;
-    height: 100%;
+    height: 93.5%;
     border-right: 1px dashed var(--light-gray);
     margin-right: 30px;
     padding: 30px;
@@ -43,6 +37,10 @@
     transition: 0.5s;
 }
 
+.close-btn:hover {
+    background-color: rgb(245, 245, 245);
+}
+
 .close-btn-closed {
     position: absolute;
     z-index: 5;
@@ -60,6 +58,10 @@
     font-size: 20px;
     cursor: pointer;
     transition: 0.5s;
+}
+
+.close-btn-closed:hover {
+    background-color: rgb(245, 245, 245);
 }
 
 .sidebar-logo {
@@ -88,7 +90,7 @@
 
 
 .login-box {
-    background-color: #367fff;
+    background-color: var(--blue);
     color: white;
     margin-top: 80px;
     height: 80px;
@@ -99,16 +101,17 @@
     font-size: 18px;
     font-family: var(--font-family);
     font-weight: 350;
+    cursor: pointer;
     transition: 0.4s;
 }
 
 .login-box:hover {
-    background-color: #669dfd;
+    background-color: var(--blue-hover);
     transition: 0.2s;
 }
 
 .login-box-closed {
-    background-color: #367fff;
+    background-color: var(--blue);
     color: white;
     margin-top: 80px;
     margin-left: 5px;
@@ -120,11 +123,12 @@
     font-size: 15px;
     font-family: var(--font-family);
     font-weight: 350;
+    cursor: pointer;
     transition: 0.4s;
 }
 
 .login-box-closed:hover {
-    background-color: #669dfd;
+    background-color: var(--blue-hover);
     color: white;
     transition: 0.2s;
 }
@@ -233,5 +237,54 @@
     font-weight: 300;
     color: var(--light-gray);
     opacity: 0;
+    transition: 0.3s;
+}
+
+.logout {
+    /* background-color: black; */
+    position: absolute;
+    bottom: 30px;
+    width: 180px;
+    height: 20px;
+    line-height: 20px;
+    padding: 10px;
+    margin-left: 0px;
+    text-align: center;
+    font-family: var(--font-family);
+    color: var(--red);
+    border: 1px solid var(--red);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout:hover {
+    color: var(--red-hover);
+    border: 1px solid var(--red-hover);
+    background-color: rgb(255, 242, 242);
+    transition: 0.3s;
+}
+
+.logout-closed {
+    position: absolute;
+    bottom: 30px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    padding: 0px;
+    margin-left: 8px;
+    text-align: center;
+    font-family: var(--font-family);
+    color: var(--red);
+    border: 1px solid var(--red);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logout-closed:hover {
+    color: var(--red-hover);
+    border: 1px solid var(--red-hover);
+    background-color: rgb(255, 242, 242);
     transition: 0.3s;
 }

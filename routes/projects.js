@@ -5,18 +5,19 @@ const db = require('../models');
 // get all projects
 router.get('/', (req, res) => {
     db.Project.findAll({
-      attributes: ['Id', 'Title', 'Description']
+        attributes: ['Id', 'Title', 'Description']
     })
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message,
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message,
+            });
         });
-      });
 });
 
+// fixed showing associated models in projects
 router.get('/:pid', (req, res) => {
   db.Project.findOne({
     where: {

@@ -58,6 +58,17 @@ db.Comment.belongsTo(db.Model, {
     targetKey: 'Id'
 })
 
+db.Model.belongsToMany(db.Project, {
+    through: db.ProjectModel,
+    sourceKey: 'Id',
+    targetKey: 'Id'
+})
+db.Project.belongsToMany(db.Model, {
+    through: db.ProjectModel,
+    sourceKey: 'Id',
+    targetKey: 'Id'
+})
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

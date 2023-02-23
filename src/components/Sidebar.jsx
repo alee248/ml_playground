@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import '../css/Sidebar.css'
 import { LeftOutlined, RightOutlined, ProjectOutlined, UserOutlined, SlidersOutlined } from '@ant-design/icons';
 
+
 function Sidebar(props) {
 
     const navigate = useNavigate()
@@ -35,10 +36,12 @@ function Sidebar(props) {
             navigate('/login')
         } else {
             // TODO: navigate to userinfo
-
-            // This is only temp code
-            props.handleLogout()
         }
+    }
+
+    const handleLogout = () => {
+        props.handleLogout()
+        navigate('/')
     }
 
     return (
@@ -75,7 +78,13 @@ function Sidebar(props) {
                         <div className={`tab-text${props.login ? '' : '-disabled'}${props.sidebarOpen ? '' : '-closed'}`}>Contributors</div>
                     </div>
                 </div>
+
+                <div className={`logout${props.sidebarOpen ? '' : '-closed'}`} hidden={props.login ? false : true} onClick={handleLogout}>
+                    Logout
+                </div>
             </div>
+
+            
         </>
     )
 }
