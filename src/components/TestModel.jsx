@@ -10,6 +10,7 @@ const { Dragger } = Upload;
 export default function TestModel(props) {
 
     const model = props.model
+    const uid = props.uid
     const [uploaded, setUploaded] = useState(false)
 
     const handleUpload = ({ file, onSuccess, onError }) => {
@@ -21,7 +22,7 @@ export default function TestModel(props) {
             formData.append('file', file)
             axios({
                 method: 'post',
-                url: `${props.server}/api/models/test/${model.Id}`,
+                url: `${props.server}/api/models/test/${model.Id}/${uid}`,
                 data: formData,
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -85,7 +86,7 @@ export default function TestModel(props) {
                     </p>
                 </Dragger>
             </div>
-            <div className={`data-info${uploaded ? '-close' : ''}`}>Your data should contain 30s of PPG signals. Please see <a className='link' href={`${process.env.PUBLIC_URL}/example.csv`} download>this example</a>.</div>
+            <div className={`data-info${uploaded ? '-close' : ''}`}>Your data should contain 30s of PPG signals. Please see <a className='link' href={`${process.env.PUBLIC_URL}/example_files/${model.ExampleFile}`} download>this example</a>.</div>
 
             <div className={`success${uploaded ? '' : '-close'}`}>
                 <div className="success-info">You have successfully uploaded your file!</div>

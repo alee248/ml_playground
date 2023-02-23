@@ -69,6 +69,18 @@ db.Project.belongsToMany(db.Model, {
     targetKey: 'Id'
 })
 
+db.Model.hasMany(db.Result)
+db.Result.belongsTo(db.Model, {
+    foreignKey: 'ModelId',
+    targetKey: 'Id'
+})
+
+db.User.hasMany(db.Result)
+db.Result.belongsTo(db.User, {
+    foreignKey: 'UserId',
+    targetKey: 'Id'
+})
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

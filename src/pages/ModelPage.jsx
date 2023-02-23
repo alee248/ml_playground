@@ -54,7 +54,7 @@ function ModelPage(props) {
                     <ModelCard model={model} />
                 </div>
                 <div className="test-model" hidden={tab === 1 ? false : true}>
-                    <TestModel model={model} server={props.server} />
+                    <TestModel model={model} server={props.server} uid={props.uid} />
                 </div>
 
             </div>

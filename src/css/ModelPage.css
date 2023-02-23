@@ -76,6 +76,13 @@
     color: var(--red);
     height: 21px;
     margin-top: 20px;
+    cursor: default;
+    transition: 0.3s;
+}
+
+.data-not-saved-note:hover {
+    font-size: 18px;
+    margin-bottom: 5px;
     transition: 0.3s;
 }
 

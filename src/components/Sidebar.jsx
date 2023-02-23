@@ -35,7 +35,8 @@ function Sidebar(props) {
             // if not logged in
             navigate('/login')
         } else {
-            // TODO: navigate to userinfo
+            // navigate to userinfo
+            navigate('/userinfo')
         }
     }
 

@@ -1,0 +1,19 @@
+.ui-content {
+    margin-left: 20px;
+    margin-right: 50px;
+    font-family: var(--font-family);
+}
+
+.ui-title {
+    color: var(--subtitle-color);
+    font-size: 25px;
+}
+
+.ui-greeting {
+    color: var(--blue);
+    font-size: 25px;
+}
+
+.ui-text {
+    margin-top: 20px;
+}
