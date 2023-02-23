@@ -18,19 +18,29 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:pid', (req, res) => {
-    db.Project.findOne({
-      where: {
-        Id: req.params.pid,
+  db.Project.findOne({
+    where: {
+      Id: req.params.pid,
+    },
+    include: [
+      {
+        model: db.ProjectModel,
+        attributes: ['ProjectId', 'ModelId'],
+        include: [
+          {
+            model: db.Model,
+            attributes: ['Id', 'Name', 'Date', 'Version']
+          }
+        ]
       },
+    ]
+  }).then((result) => {
+    res.send(result);
+  }).catch((err) => {
+    res.status(500).send({
+      message: err.message,
     })
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message,
-        });
-      });
+  })
 });
 
 
