@@ -20,11 +20,14 @@ function NaviBar(props) {
 
     if (pathname === '/') {
         paths.push('projects')
+        props.handleRoute('')
     } else {
         paths = pathname.split('/')
         paths.shift()
+        if (paths.length <= 1) {
+            props.handleRoute('')
+        }
     }
-
 
     const handleNavigate = e => {
         const index = e.target.id
@@ -66,4 +69,16 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(NaviBar)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleRoute(name) {
+            const action = {
+                type: 'setRouteName',
+                value: name
+            }
+            dispatch(action)
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NaviBar)

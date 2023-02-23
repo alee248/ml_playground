@@ -25,8 +25,8 @@ function ModelPage(props) {
             if (res.data === '') {
                 navigate('/projects')
             }
-            setModel(res.data)
             props.handleRoute(res.data.Name)
+            setModel(res.data)
         })
     }, [])
 
@@ -47,10 +47,10 @@ function ModelPage(props) {
                     </Tabs>
                 </div>
                 <div className="model-card" hidden={tab === 0 ? false : true}>
-                    <ModelCard Model={model} />
+                    <ModelCard model={model} />
                 </div>
                 <div className="test-model" hidden={tab === 1 ? false : true}>
-                    <TestModel Model={model} />
+                    <TestModel model={model} server={props.server} />
                 </div>
                 
             </div>

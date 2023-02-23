@@ -1,6 +1,8 @@
 const express = require('express');
+const multer = require('multer')
 var router = express.Router();
 const db = require('../models');
+const upload = multer();
 
 // get all models
 router.get('/', (req, res) => {
@@ -32,6 +34,19 @@ router.get('/:mid', (req, res) => {
       });
     });
 });
+
+// TODO: push the file to redis
+router.post('/test/:mid', upload.single('file'), (req, res) => {
+
+    // This is the file
+    const file = req.file
+
+    // This is the model id
+    const mid = req.params.mid
+
+    // when pushed to redis or failed, send status back
+    res.send({"status": "done"})
+})
 
 
 module.exports = router

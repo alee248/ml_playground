@@ -101,16 +101,17 @@
     font-size: 18px;
     font-family: var(--font-family);
     font-weight: 350;
+    cursor: pointer;
     transition: 0.4s;
 }
 
 .login-box:hover {
-    background-color: #669dfd;
+    background-color: var(--blue-hover);
     transition: 0.2s;
 }
 
 .login-box-closed {
-    background-color: #367fff;
+    background-color: var(--blue);
     color: white;
     margin-top: 80px;
     margin-left: 5px;
@@ -122,11 +123,12 @@
     font-size: 15px;
     font-family: var(--font-family);
     font-weight: 350;
+    cursor: pointer;
     transition: 0.4s;
 }
 
 .login-box-closed:hover {
-    background-color: #669dfd;
+    background-color: var(--blue-hover);
     color: white;
     transition: 0.2s;
 }

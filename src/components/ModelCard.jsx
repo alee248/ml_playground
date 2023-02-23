@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ModelCard(props) {
 
-    const model = props.Model
+    const model = props.model
 
     return (
         <>

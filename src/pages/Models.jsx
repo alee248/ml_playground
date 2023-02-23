@@ -38,7 +38,7 @@ function Models(props) {
                     return (
                         <div className="model" key={model.Id}>
                             <div className="model-title">{model.Name}</div>
-                            <div className="model-detail-head">Model Details</div>
+                            {/* <div className="model-detail-head">Model Details</div> */}
                             <div className="model-detail">{model.Details}</div>
                             <div className="model-btn-area">
                                 <div className="model-cont"></div>
