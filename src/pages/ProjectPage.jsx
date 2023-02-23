@@ -24,6 +24,10 @@ function ProjectPage(props) {
         })
     }, [])
 
+    const handleMore = e => {
+        navigate(`/models/${e.target.id}`)
+    }
+
     return (
         <>
             <div className="proj-pg-content">
@@ -38,10 +42,19 @@ function ProjectPage(props) {
                 <div className="proj-pg-text">
                     {project.Goal}
                 </div>
-                <div className="proj-pg-head">Models</div>
-                <div className="proj-pg-text">
+                <div className="proj-pg-head" hidden={project.Models && project.Models.length > 0 ? false : true}>Models</div>
 
-                </div>
+                {project.Models ? project.Models.map(model => {
+                    return (
+                        <div className="proj-model" key={model.Id}>
+                            <div className="proj-model-name">{model.Name}</div>
+                            <div className="proj-model-more-btn" id={model.Id} onClick={handleMore}>More</div>
+                        </div>
+
+                    )
+                }) : ''}
+
+
             </div>
         </>
     )

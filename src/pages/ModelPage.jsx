@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useCookies } from 'react-cookie'
 import { useParams, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/ModelPage.css'
@@ -12,10 +13,11 @@ import TestModel from '../components/TestModel';
 function ModelPage(props) {
 
     const navigate = useNavigate()
-
+    const [cookies, setCookie] = useCookies([''])
     const { mid } = useParams()
     const [model, setModel] = useState({})
     const [tab, setTab] = useState(0)
+
 
     useEffect(() => {
         axios({
@@ -27,11 +29,13 @@ function ModelPage(props) {
             }
             props.handleRoute(res.data.Name)
             setModel(res.data)
+            setTab(cookies[`tab${res.data.Id}`] === undefined ? 0 : parseInt(cookies[`tab${res.data.Id}`]))
         })
     }, [])
 
     const handleSwitchTab = (event, newValue) => {
         setTab(newValue)
+        setCookie(`tab${model.Id}`, newValue, { expires: new Date(new Date().getTime + 2*3600*1000) })
     }
 
     return (
@@ -52,7 +56,7 @@ function ModelPage(props) {
                 <div className="test-model" hidden={tab === 1 ? false : true}>
                     <TestModel model={model} server={props.server} />
                 </div>
-                
+
             </div>
         </>
     )

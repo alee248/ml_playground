@@ -25,3 +25,28 @@
     line-height: var(--content-line-height);
     text-indent: 20px;
 }
+
+.proj-model {
+    display: flex;
+    color: var(--content-color);
+    line-height: var(--content-line-height);
+    border-bottom: 1px dashed var(--light-gray);
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.proj-model-name {
+    width: 93%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.proj-model-more-btn {
+    color: var(--blue);
+    cursor: pointer;
+}
+
+.proj-model-more-btn:hover {
+    color: var(--blue-hover)
+}

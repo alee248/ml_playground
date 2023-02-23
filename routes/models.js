@@ -7,32 +7,37 @@ const upload = multer();
 // get all models
 router.get('/', (req, res) => {
     db.Model.findAll({
-      attributes: ['Id', 'Name', 'Details', 'Date']
+        attributes: ['Id', 'Name', 'Details', 'Date']
     })
-      .then((result) => {
-        res.send(result);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message,
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message,
+            });
         });
-      });
 });
 
+// fixed showing associated projects in models
 router.get('/:mid', (req, res) => {
-  db.Model.findOne({
-    where: {
-      Id: req.params.mid,
-    },
-  })
-    .then((result) => {
-      res.send(result);
+    db.Model.findOne({
+        include: [{
+            model: db.Project,
+            attributes: ['Id', 'Title']
+        }],
+        where: {
+            Id: req.params.mid,
+        },
     })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message,
-      });
-    });
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message,
+            });
+        });
 });
 
 // TODO: push the file to redis
@@ -45,7 +50,7 @@ router.post('/test/:mid', upload.single('file'), (req, res) => {
     const mid = req.params.mid
 
     // when pushed to redis or failed, send status back
-    res.send({"status": "done"})
+    res.send({ "status": "done" })
 })
 
 

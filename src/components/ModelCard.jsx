@@ -1,8 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function ModelCard(props) {
 
     const model = props.model
+
+    const navigate = useNavigate()
+
+    const handleMore = e => {
+        navigate(`/projects/${e.target.id}`)
+    }
 
     return (
         <>
@@ -38,10 +45,15 @@ export default function ModelCard(props) {
             <div className="model-pg-text" hidden={model.License ? false : true}>
                 {model.License}
             </div>
-            <div className="model-pg-head">Used In</div>
-            <div className="model-pg-text">
-
-            </div>
+            <div className="model-pg-head" hidden={model.Projects && model.Projects.length > 0 ? false : true}>Used In</div>
+            {model.Projects && model.Projects.length > 0 ? model.Projects.map(project => {
+                return (
+                    <div className="model-pg-projects" key={project.Id}>
+                        <div className="model-pg-project-title">{project.Title}</div>
+                        <div className="model-pg-project-more-btn" id={project.Id} onClick={handleMore}>More</div>
+                    </div>
+                )
+            }) : ''}
         </>
     )
 }
