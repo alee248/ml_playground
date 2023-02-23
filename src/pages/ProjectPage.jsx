@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/ProjectPage.css'
 import axios from 'axios'
 
 function ProjectPage(props) {
+
+    const navigate = useNavigate()
 
     const { pid } = useParams()
     const [project, setProject] = useState({})
@@ -14,7 +16,11 @@ function ProjectPage(props) {
             method: 'get',
             url: `${props.server}/api/projects/${pid}`
         }).then(res => {
+            if (res.data === '') {
+                navigate('/projects')
+            }
             setProject(res.data)
+            props.handleRoute(res.data.Title)
         })
     }, [])
 
@@ -51,4 +57,16 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(ProjectPage)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleRoute(name) {
+            const action = {
+                type: 'setRouteName',
+                value: name
+            }
+            dispatch(action)
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectPage)

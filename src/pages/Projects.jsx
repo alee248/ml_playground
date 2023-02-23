@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import '../css/Projects.css'
 import { Button } from 'antd'
+import Pagination from '@mui/material/Pagination';
 import axios from 'axios'
 
 function Projects(props) {
@@ -39,11 +40,13 @@ function Projects(props) {
                                 <div className="more-btn-area" hidden={props.login ? false : true}>
                                     <Button className="more-btn" id={project.Id} type='link' onClick={handleMore}>More</Button>
                                 </div>
-                                
+
                             </div>
                         </div>
                     )
                 })}
+
+                <Pagination count={10} shape="rounded" hidden/>
             </div>
         </>
     )

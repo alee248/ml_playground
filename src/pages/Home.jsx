@@ -17,11 +17,14 @@ function Home(props) {
                 <div className="main-page">
                     <SearchBar />
                     <NaviBar />
-                    <Outlet />
+                    <div className="outlet">
+                        <Outlet />
+                    </div>
+                    
                 </div>
-                
+
             </div>
-            
+
         </>
     )
 }

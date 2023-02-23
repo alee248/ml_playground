@@ -6,6 +6,7 @@ import Projects from '../pages/Projects'
 import Error from '../pages/Error'
 import Models from '../pages/Models'
 import ProjectPage from '../pages/ProjectPage'
+import ModelPage from '../pages/ModelPage'
 
 const BaseRouter = () => (
     <BrowserRouter forceRefresh={false}>
@@ -15,6 +16,7 @@ const BaseRouter = () => (
                 <Route path='/projects' element={<Projects />}></Route>
                 <Route path='/projects/:pid' element={<ProjectPage />}></Route>
                 <Route path='/models' element={<Models />}></Route>
+                <Route path='/models/:mid' element={<ModelPage />}></Route>
             </Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path="/*" element={<Error />}></Route>

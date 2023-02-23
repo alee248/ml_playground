@@ -1,12 +1,14 @@
 :root {
     --font-family: sans-serif;
     --blue: #367fff;
-    --dark-gray: #3c3c3c;
+    --dark-gray: #415058;
     --light-gray: #BBBBBB;
     --gray: #a7a7a7;
     --content-color: #737373;
-    --subtitle-color: #5d5d5d;
-    --content-line-height: 25px;
+    --subtitle-color: #737373;
+    --content-line-height: 28px;
+    --red: rgb(255, 71, 71);
+    --red-hover: rgb(255, 123, 123);
 }
 
 .home {
@@ -17,9 +19,15 @@
     bottom: 0;
     left: 0;
     right: 0;
+    overflow-y: hidden;
 }
 
 .main-page {
     display: block;
     width: 100%
+}
+
+.outlet {
+    overflow-y: overlay;
+    height: calc(93% - 140px);
 }

@@ -10,13 +10,14 @@ const defaultState = {
     uid,
     email,
     sidebarOpen,
+    routeName: '',
     server: 'http://localhost:8080'
 }
 
 export default (state = defaultState, action) => {
     let newState = JSON.parse(JSON.stringify(state))
-    
-    switch(action.type) {
+
+    switch (action.type) {
         case "userInfo":
             const user = action.value
             sessionStorage.setItem('login', 1)
@@ -43,6 +44,10 @@ export default (state = defaultState, action) => {
         case "sidebar":
             sessionStorage.setItem('sidebarOpen', state.sidebarOpen === '1' ? '0' : '1')
             newState.sidebarOpen = sessionStorage.getItem('sidebarOpen')
+            break
+
+        case "setRouteName":
+            newState.routeName = action.value
             break
 
         default:
