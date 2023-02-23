@@ -25,15 +25,9 @@ router.get('/:pid', (req, res) => {
     },
     include: [
       {
-        model: db.ProjectModel,
-        attributes: ['ProjectId', 'ModelId'],
-        include: [
-          {
-            model: db.Model,
-            attributes: ['Id', 'Name', 'Date', 'Version']
-          }
-        ]
-      },
+        model: db.Model,
+        attributes: ['Id', 'Name']
+      }
     ]
   }).then((result) => {
     res.send(result);
