@@ -55,7 +55,6 @@ function UserInfo(props) {
             title: 'Value',
             dataIndex: 'value',
             key: 'value',
-            render: (value) => value === null ? '-' : value,
             align: 'center',
             width: 70
         },
@@ -134,7 +133,7 @@ function UserInfo(props) {
                         version: res.data[i].Model.Version,
                         fileName: res.data[i].FileName,
                         status: res.data[i].Status === 'Done' ? (<div className='status-done'>Done</div>) : (res.data[i].Status === 'Failed' ? <div className='status-failed'>Failed</div> : <div className='status'>{res.data[i].Status}</div>),
-                        value: res.data[i].Value,
+                        value: res.data[i].Value === null ? '-' : JSON.parse(res.data[i].Value).results.toString(),
                         probability: res.data[i].Prob,
                         date: getDate(res.data[i].Datetime),
                         action: res.data[i].Status === 'Done' || res.data[i].Status === 'Failed' ? (<div className='res-pg-btn' id={res.data[i].Id} onClick={handleResult}>Result</div>) : null

@@ -11,10 +11,6 @@ const ResultModel = function (sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
-            Prob: {
-                type: DataTypes.FLOAT,
-                allowNull: true,
-            },
             Status: {
                 type: DataTypes.STRING,
                 allowNull: false,
