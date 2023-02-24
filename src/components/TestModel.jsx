@@ -15,44 +15,54 @@ export default function TestModel(props) {
     const model = props.model
     const uid = props.uid
     const [uploaded, setUploaded] = useState(false)
+    const [files, setFiles] = useState([])
 
     const handleUpload = ({ file, onSuccess, onError }) => {
-        // console.log(file)
-
-        // check format
         if (file.type === 'text/csv') {
-            let formData = new FormData()
-            formData.append('file', file)
-            axios({
-                method: 'post',
-                url: `${props.server}/api/models/test/${model.Id}/${uid}`,
-                data: formData,
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((res) => {
-                onSuccess("ok")
-                setUploaded(true)
-            })
+            let tmp = files
+            tmp.push(file)
+            setFiles(tmp)
+            onSuccess("ok")
         } else {
             message.error('Please upload a .csv file!')
             onError("Wrong format!")
         }
 
 
+        // check format
+        // if (file.type === 'text/csv') {
+        //     let formData = new FormData()
+        //     formData.append('file', file)
+        //     axios({
+        //         method: 'post',
+        //         url: `${props.server}/api/models/test/${model.Id}/${uid}`,
+        //         data: formData,
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data'
+        //         }
+        //     }).then((res) => {
+        //         onSuccess("ok")
+        //         setUploaded(true)
+        //     })
+        // } else {
+        //     message.error('Please upload a .csv file!')
+        //     onError("Wrong format!")
+        // }
+
+
     }
 
-    // const handleChange = e => {
-    //     const { status } = e.file;
-    //     if (status !== 'uploading') {
-    //         console.log(e.file, e.fileList);
-    //     }
-    //     if (status === 'done') {
-    //         message.success(`${e.file.name} file uploaded successfully.`);
-    //     } else if (status === 'error') {
-    //         message.error(`${e.file.name} file upload failed.`);
-    //     }
-    // }
+    const handleChange = e => {
+        const { status } = e.file;
+        if (status !== 'uploading') {
+            console.log(e.file, e.fileList);
+        }
+        if (status === 'done') {
+            message.success(`${e.file.name} file uploaded successfully.`);
+        } else if (status === 'error') {
+            message.error(`${e.file.name} file upload failed.`);
+        }
+    }
 
     const handleConfirm = () => {
         setUploaded(false)
@@ -64,18 +74,19 @@ export default function TestModel(props) {
 
     const args = {
         name: 'file',
-        multiple: false,
+        multiple: true,
         customRequest: handleUpload,
-        // onChange: handleChange,
-        // onDrop(e) {
-        //     console.log('Dropped files', e.dataTransfer.files);
-        // },
-        fileList: []
+        onChange: handleChange,
+        onDrop(e) {
+            console.log('Dropped files', e.dataTransfer.files);
+        },
+        fileList: files
     };
 
     return (
         <>
             <div className={`data-not-saved-note${uploaded ? '-close' : ''}`}>⚠️Your data will NOT be saved by any means!</div>
+            <div className={`data-info${uploaded ? '-close' : ''}`}>Your data should contain 30s of PPG signals. Please see <a className='link' href={`${process.env.PUBLIC_URL}/example_files/${model.ExampleFile}`} download>this example</a>.</div>
             <div className={`file-dropbox${uploaded ? '-close' : ''}`}>
                 <Dragger {...args}>
                     <p className="ant-upload-drag-icon">
@@ -89,7 +100,6 @@ export default function TestModel(props) {
                     </p>
                 </Dragger>
             </div>
-            <div className={`data-info${uploaded ? '-close' : ''}`}>Your data should contain 30s of PPG signals. Please see <a className='link' href={`${process.env.PUBLIC_URL}/example_files/${model.ExampleFile}`} download>this example</a>.</div>
 
             <div className={`success${uploaded ? '' : '-close'}`}>
                 <div className="success-info">You have successfully uploaded your file!</div>
