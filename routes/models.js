@@ -3,6 +3,18 @@ const multer = require('multer')
 var router = express.Router();
 const db = require('../models');
 const upload = multer();
+const redis = require("redis");
+var fs = require('fs');
+const redisUrl = "redis://127.0.0.1:6379";
+const redisClient = redis.createClient(redisUrl);
+const { Queue } = require("bullmq");
+
+const redisConfiguration = {
+    connection: {
+      host: "127.0.0.1",
+      port: "6379",
+    },
+  };
 
 // get all models
 router.get('/', (req, res) => {
@@ -44,9 +56,11 @@ router.get('/:mid', (req, res) => {
 router.post('/test/:mid/:uid', upload.single('file'), async (req, res) => {
     // This is the file
     const file = req.file
+    const data = file.buffer
 
     // This is the model id and user id
     const { mid, uid } = req.params
+    console.log({mid, uid})
 
     // add record to result table
     await db.Result.create({
@@ -60,6 +74,22 @@ router.post('/test/:mid/:uid', upload.single('file'), async (req, res) => {
     // when worker pulls the file from redis, change result.status to 'Processing'
     // when worker successfully processed the file, save results to result.value and change result.status to 'Done'
     // when process failed, change result.status to 'Failed'
+
+    // connect to redis
+    await redisClient.connect();
+
+    fs.readFile(file, 'UTF-8', function(err, csv) {
+        $.csv.toArrays(csv, {}, function(err, data) {
+          for(var i=0, len=data.length; i<len; i++) {
+            console.log(data[i]); //Will print every csv line as a newline
+          }
+        });
+    });
+
+    // const myQueue = new Queue("myqueue", redisConfiguration);
+    // redisClient.set(file.originalname, JSON.stringify({ data }))
+
+
     res.send({ "status": "done" })
 })
 
