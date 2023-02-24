@@ -4,8 +4,12 @@
     font-family: var(--font-family);
 }
 
-.ui-title {
+.ui-table {
     margin-top: 20px;
+}
+
+.ui-title {
+    margin-top: 10px;
     color: var(--subtitle-color);
     font-size: 25px;
 }
@@ -20,8 +24,8 @@
     margin-top: 20px;
 }
 
-.delete-job-btn {
-    background-color: var(--red);
+.res-pg-btn {
+    background-color: var(--blue);
     padding: 5px;
     font-size: 10px;
     text-align: center;
@@ -42,7 +46,6 @@
     color: var(--blue);
     border-radius: 5px;
     border: 0.8px solid var(--blue);
-    width: 80px;
 }
 
 .status-done {
@@ -53,7 +56,6 @@
     color: var(--green);
     border-radius: 5px;
     border: 0.8px solid var(--green);
-    width: 80px;
 }
 
 .status-failed {
@@ -64,5 +66,19 @@
     color: var(--red);
     border-radius: 5px;
     border: 0.8px solid var(--red);
-    width: 80px;
+}
+
+.com-btn-area {
+    display: flex;
+}
+
+.com-btn {
+    background-color: var(--blue);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
 }

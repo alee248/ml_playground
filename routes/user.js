@@ -20,7 +20,7 @@ router.post("/login", (req, res) => {
         if (user && user.dataValues) {
             res.send(user.dataValues)
         } else {
-            res.send({Id: -1})
+            res.send({ Id: -1 })
         }
     }).catch(err => {
         res.status(500).send({
@@ -36,6 +36,26 @@ router.get("/getPendingJobs/:uid", (req, res) => {
         include: [{
             model: db.Model,
             attributes: ['Id', 'Name', 'Version']
+        }],
+        where: {
+            UserId: uid
+        }
+    }).then(result => {
+        res.send(result)
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message
+        })
+    })
+})
+
+router.get("/getComments/:uid", (req, res) => {
+    const { uid } = req.params
+
+    db.Comment.findAll({
+        include: [{
+            model: db.Model,
+            attributes: ['Id', 'Name']
         }],
         where: {
             UserId: uid
