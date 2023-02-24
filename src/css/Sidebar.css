@@ -76,6 +76,19 @@
     color: var(--dark-gray)
 }
 
+@media screen and (max-width: 750px) {
+    .layout-closed {
+        width: 0px;
+        padding: 0px;
+        border: 0px dashed var(--light-gray);
+        overflow: hidden;
+    }
+
+    .close-btn-closed {
+        left: -5px;
+    }
+}
+
 .sidebar-logo-out {
     position: absolute;
     text-align: center;
@@ -158,6 +171,15 @@
     border-radius: 8px;
     transition: 0.3s;
     cursor: pointer;
+}
+
+@media screen and (max-width: 750px) {
+    .login-box-closed {
+        height: 0px;
+        width: 0px;
+        opacity: 0;
+        transition: 0.4s;
+    }
 }
 
 .side-btn:hover {
@@ -280,6 +302,16 @@
     border-radius: 50%;
     cursor: pointer;
     transition: 0.3s;
+}
+
+@media screen and (max-width: 750px) {
+    .logout-closed {
+        height: 0px;
+        width: 0px;
+        margin: 0px;
+        line-height: 0px;
+        opacity: 0;
+    }
 }
 
 .logout-closed:hover {

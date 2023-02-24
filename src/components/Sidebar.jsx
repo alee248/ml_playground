@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import '../css/Sidebar.css'
@@ -8,6 +8,28 @@ import { LeftOutlined, RightOutlined, ProjectOutlined, UserOutlined, SlidersOutl
 function Sidebar(props) {
 
     const navigate = useNavigate()
+    const [winWidth, setWinWidth] = useState(document.querySelector('body').offsetWidth)
+
+    useEffect(() => {
+
+        const handleResize = e => {
+            if (e.target.innerWidth <= 560) {
+                setWinWidth(560)
+            } else if (e.target.innerWidth <= 750) {
+                setWinWidth(750)
+            } else if (e.target.innerWidth < 1000) {
+                setWinWidth(999)
+            } else {
+                setWinWidth(1000)
+            }
+        }
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+
+    }, [winWidth])
 
 
     const handleClose = () => {
@@ -16,12 +38,18 @@ function Sidebar(props) {
 
     const handleProjects = () => {
         if (props.login) {
+            if (winWidth <= 750) {
+                props.handleSidebar()
+            }
             navigate('/projects')
         }
     }
 
     const handleModels = () => {
         if (props.login) {
+            if (winWidth <= 750) {
+                props.handleSidebar()
+            }
             navigate('/models')
         }
     }
@@ -33,15 +61,24 @@ function Sidebar(props) {
     const handleUser = () => {
         if (!props.login) {
             // if not logged in
+            if (winWidth <= 750) {
+                props.handleSidebar()
+            }
             navigate('/login')
         } else {
             // navigate to userinfo
+            if (winWidth <= 750) {
+                props.handleSidebar()
+            }
             navigate('/userinfo')
         }
     }
 
     const handleLogout = () => {
         props.handleLogout()
+        if (winWidth <= 750) {
+            props.handleSidebar()
+        }
         navigate('/')
     }
 
@@ -85,7 +122,7 @@ function Sidebar(props) {
                 </div>
             </div>
 
-            
+
         </>
     )
 }
