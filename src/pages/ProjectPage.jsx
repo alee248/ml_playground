@@ -12,6 +12,10 @@ function ProjectPage(props) {
     const [project, setProject] = useState({})
 
     useEffect(() => {
+        if (!props.login) {
+            navigate('/')
+        }
+
         axios({
             method: 'get',
             url: `${props.server}/api/projects/${pid}`

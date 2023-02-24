@@ -20,6 +20,10 @@ function ModelPage(props) {
 
 
     useEffect(() => {
+        if (!props.login) {
+            navigate('/')
+        }
+        
         axios({
             method: 'get',
             url: `${props.server}/api/models/${mid}`
