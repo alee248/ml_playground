@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import '../css/ModelPage.css'
 import { InboxOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
@@ -8,6 +9,8 @@ import axios from 'axios';
 const { Dragger } = Upload;
 
 export default function TestModel(props) {
+
+    const navigate = useNavigate()
 
     const model = props.model
     const uid = props.uid
@@ -56,7 +59,7 @@ export default function TestModel(props) {
     }
 
     const handleResult = () => {
-        // TODO: handle result
+        navigate('/userinfo')
     }
 
     const args = {
@@ -92,7 +95,7 @@ export default function TestModel(props) {
                 <div className="success-info">You have successfully uploaded your file!</div>
                 <div className="confirm-btn-area">
                     <div className="confirm-btn" onClick={handleConfirm}>Confirm</div>
-                    <div className="result-btn" onClick={handleResult}>Result</div>
+                    <div className="result-btn" onClick={handleResult}>Results</div>
                 </div>
             </div>
 

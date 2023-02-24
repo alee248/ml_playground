@@ -5,15 +5,64 @@
 }
 
 .ui-title {
+    margin-top: 20px;
     color: var(--subtitle-color);
     font-size: 25px;
 }
 
 .ui-greeting {
+    margin-bottom: 30px;
     color: var(--blue);
-    font-size: 25px;
+    font-size: 30px;
 }
 
 .ui-text {
     margin-top: 20px;
+}
+
+.delete-job-btn {
+    background-color: var(--red);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-job-btn:hover {
+    background-color: var(--red-hover);
+}
+
+.status {
+    background-color: rgb(241, 241, 255);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: var(--blue);
+    border-radius: 5px;
+    border: 0.8px solid var(--blue);
+    width: 80px;
+}
+
+.status-done {
+    background-color: rgb(241, 255, 241);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: var(--green);
+    border-radius: 5px;
+    border: 0.8px solid var(--green);
+    width: 80px;
+}
+
+.status-failed {
+    background-color: rgb(255, 245, 245);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: var(--red);
+    border-radius: 5px;
+    border: 0.8px solid var(--red);
+    width: 80px;
 }

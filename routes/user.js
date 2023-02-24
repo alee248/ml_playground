@@ -29,4 +29,24 @@ router.post("/login", (req, res) => {
     })
 });
 
+router.get("/getPendingJobs/:uid", (req, res) => {
+    const { uid } = req.params
+
+    db.Result.findAll({
+        include: [{
+            model: db.Model,
+            attributes: ['Id', 'Name', 'Version']
+        }],
+        where: {
+            UserId: uid
+        }
+    }).then(result => {
+        res.send(result)
+    }).catch(err => {
+        res.status(500).send({
+            message: err.message
+        })
+    })
+})
+
 module.exports = router
