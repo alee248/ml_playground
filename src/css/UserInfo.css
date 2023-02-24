@@ -6,12 +6,24 @@
 
 .ui-table {
     margin-top: 20px;
+    height: auto;
+    transition: 0.3s;
+}
+
+.ui-table-folded {
+    margin-top: 0px;
+    height: 0px;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.3s;
 }
 
 .ui-title {
     margin-top: 10px;
     color: var(--subtitle-color);
     font-size: 25px;
+    cursor: pointer;
+    transition: 0.5s;
 }
 
 .ui-greeting {
@@ -32,6 +44,26 @@
     color: white;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.delete-job-btn {
+    background-color: var(--red);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-job-btn-disabled {
+    background-color: var(--light-gray);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    cursor: default;
 }
 
 .delete-job-btn:hover {
@@ -81,4 +113,23 @@
     border-radius: 5px;
     cursor: pointer;
     width: 100%;
+}
+
+.com-btn:hover {
+    background-color: var(--blue-hover);
+}
+
+.com-delete-btn {
+    background-color: var(--red);
+    padding: 5px;
+    font-size: 10px;
+    text-align: center;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.com-delete-btn:hover {
+    background-color: var(--red-hover);
 }

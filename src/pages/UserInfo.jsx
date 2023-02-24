@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import { useCookies } from 'react-cookie'
 import { connect } from 'react-redux'
 import '../css/UserInfo.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Space, Table, Tag } from 'antd';
+import { Table, message } from 'antd';
+
+const greeting = (hour) => {
+    if (hour < 12 && hour > 5) {
+        return 'Good morning, '
+    } else if (hour < 18) {
+        return 'Good afternoon, '
+    } else if (hour < 20) {
+        return 'Good evening, '
+    } else {
+        return 'Good night, '
+    }
+}
 
 
 function UserInfo(props) {
+
+    const [cookies, setCookie] = useCookies([''])
 
     const navigate = useNavigate()
     const [history, setHistory] = useState([])
@@ -14,6 +29,8 @@ function UserInfo(props) {
     const [comments, setComments] = useState([])
     const [historyLoading, setHistoryLoading] = useState(false);
     const [commentLoading, setCommentLoading] = useState(false);
+    const [historyFold, setHistoryFold] = useState(false)
+    const [commentsFold, setCommentsFold] = useState(false)
 
     const getDate = d => {
         let res = ''
@@ -36,7 +53,8 @@ function UserInfo(props) {
             title: 'Version',
             dataIndex: 'version',
             key: 'version',
-            width: 80
+            width: 80,
+            align: 'center'
         },
         {
             title: 'File Name',
@@ -52,24 +70,17 @@ function UserInfo(props) {
             width: 50
         },
         {
-            title: 'Value',
-            dataIndex: 'value',
-            key: 'value',
-            align: 'center',
-            width: 70
-        },
-        {
-            title: 'Prob',
-            dataIndex: 'probability',
-            key: 'probability',
-            render: (value) => value === null ? '-' : value,
+            title: 'Results',
+            dataIndex: 'results',
+            key: 'results',
             align: 'center',
             width: 70
         },
         {
             title: 'Date',
             dataIndex: 'date',
-            key: 'date'
+            key: 'date',
+            align: 'center'
         },
         {
             title: 'Action',
@@ -104,17 +115,53 @@ function UserInfo(props) {
         },
     ]
 
-    const handleResult = e => {
-        console.log(e.target.id)
-        // TODO: navigate to result page
+    const handleShowResult = e => {
+        navigate(`/userinfo/results?rid=${e.target.id}`)
     }
 
+    const handleResult = e => {
+        const id = e.target.id
+        console.log(id)
+    }
 
+    const handleDeleteResult = (id, disabled) => {
+        if (!disabled) {
+            // delete record
+            axios({
+                method: 'get',
+                url: `${props.server}/api/results/delete/${id}`
+            }).then(res => {
+                if (res.data && res.data.result === 'succeed') {
+                    message.success('Successfully deleted!')
+                    window.location.reload(false)
+                }
+            })
+        }
+    }
+
+    const handleFoldHistory = () => {
+        setCookie('hf', !historyFold, { expires: new Date(new Date().getTime + 2*3600*1000) })
+        setHistoryFold(!historyFold)
+    }
+
+    const handleFoldComments = () => {
+        setCookie('cf', !commentsFold, { expires: new Date(new Date().getTime + 2*3600*1000) })
+        setCommentsFold(!commentsFold)
+    }
 
     useEffect(() => {
         if (!props.login) {
             navigate('/')
         }
+
+        if (cookies['hf'] !== undefined && cookies['hf'] === 'true') {
+            setHistoryFold(true)
+        }
+
+        if (cookies['cf'] !== undefined && cookies['cf'] === 'true') {
+            setCommentsFold(true)
+        }
+
         setHistoryLoading(true)
         setCommentLoading(true)
         axios({
@@ -133,10 +180,9 @@ function UserInfo(props) {
                         version: res.data[i].Model.Version,
                         fileName: res.data[i].FileName,
                         status: res.data[i].Status === 'Done' ? (<div className='status-done'>Done</div>) : (res.data[i].Status === 'Failed' ? <div className='status-failed'>Failed</div> : <div className='status'>{res.data[i].Status}</div>),
-                        value: res.data[i].Value === null ? '-' : JSON.parse(res.data[i].Value).results.toString(),
-                        probability: res.data[i].Prob,
+                        results: res.data[i].Status === 'Done' || res.data[i].Status === 'Failed' ? (<div className='res-pg-btn' id={res.data[i].Id} onClick={handleShowResult}>Result</div>) : '-',
                         date: getDate(res.data[i].Datetime),
-                        action: res.data[i].Status === 'Done' || res.data[i].Status === 'Failed' ? (<div className='res-pg-btn' id={res.data[i].Id} onClick={handleResult}>Result</div>) : null
+                        action: <div className={`delete-job-btn${res.data[i].Status !== 'Processing' ? '' : '-disabled'}`} id={res.data[i].Id} onClick={() => handleDeleteResult(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)}>Delete</div>
                     })
                 }
             }
@@ -162,8 +208,8 @@ function UserInfo(props) {
                             date: getDate(res.data[i].Datetime),
                             action: (<div className='com-btn-area'>
                                 <div className='com-btn' id={res.data[i].Id} onClick={handleResult}>Edit</div>
-                                <div className='com-btn' id={res.data[i].Id} onClick={handleResult} style={{marginLeft: '1em'}}>Delete</div>
-                                <div className='com-btn' id={res.data[i].Id} onClick={handleResult} style={{marginLeft: '1em'}}>Show</div>
+                                <div className='com-delete-btn' id={res.data[i].Id} onClick={handleResult} style={{ marginLeft: '1em' }}>Delete</div>
+                                <div className='com-btn' id={res.data[i].Id} onClick={handleResult} style={{ marginLeft: '1em' }}>Show</div>
                             </div>)
                         })
                     }
@@ -177,17 +223,6 @@ function UserInfo(props) {
 
 
 
-    const greeting = (hour) => {
-        if (hour < 12 && hour > 5) {
-            return 'Good morning, '
-        } else if (hour < 18) {
-            return 'Good afternoon, '
-        } else if (hour < 20) {
-            return 'Good evening, '
-        } else {
-            return 'Good night, '
-        }
-    }
 
     return (
         <>
@@ -196,13 +231,13 @@ function UserInfo(props) {
                     {greeting(new Date().getHours()) + props.username}!
                 </div>
 
-                <div className="ui-title">History</div>
-                <div className="ui-table">
+                <div className="ui-title" onClick={handleFoldHistory}>History</div>
+                <div className={`ui-table${historyFold ? '-folded' : ''}`}>
                     <Table pagination={{ position: ['bottomCenter'] }} tableLayout='auto' size='middle' loading={historyLoading} columns={historyColumns} dataSource={historyData} />
                 </div>
 
-                <div className="ui-title">Comments</div>
-                <div className="ui-table">
+                <div className="ui-title" onClick={handleFoldComments}>Comments</div>
+                <div className={`ui-table${commentsFold ? '-folded' : ''}`}>
                     <Table pagination={{ position: ['bottomCenter'] }} tableLayout='auto' size='middle' loading={commentLoading} columns={commentsColumns} dataSource={comments} />
                 </div>
             </div>
