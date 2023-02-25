@@ -15,6 +15,21 @@
     --lg-green: linear-gradient(to bottom right, rgb(46, 145, 46), rgb(87, 190, 87))
 }
 
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 70;
+    }
+    
+    100% {
+        opacity: 100;
+    }
+}
+
+
 .color {
     color: rgb(87, 190, 87);
 }

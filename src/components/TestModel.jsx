@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../css/ModelPage.css'
 import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload, Checkbox } from 'antd';
+import { message, Upload, Checkbox, Button, Result } from 'antd';
 import axios from 'axios';
 
 
@@ -39,6 +39,7 @@ export default function TestModel(props) {
             // console.log(files)
             let formData = new FormData()
             for (let i = 0; i < files.length; i++) {
+                console.log(files[i])
                 if (files[i].type === 'text/csv') {
                     formData.append('files', files[i])
                 } else {
@@ -110,14 +111,25 @@ export default function TestModel(props) {
     };
 
     return (
-        <>
-            <div className={`success${uploaded ? '' : '-close'}`}>
+        <div className='test-model-content'>
+            {/* <div className={`success${uploaded ? '' : '-close'}`}>
                 <div className="success-info">You have successfully uploaded your file!</div>
                 <div className="confirm-btn-area">
                     <div className="confirm-btn" onClick={handleConfirm} style={{ cursor: uploaded ? 'pointer' : 'default' }}>Confirm</div>
                     <div className="result-btn" onClick={handleResult} style={{ cursor: uploaded ? 'pointer' : 'default' }}>Results</div>
                 </div>
+            </div> */}
+            <div className={`success${uploaded ? '' : '-close'}`}>
+                <Result
+                    status='success' title='Successfully uploaded files!'
+                    subTitle="It may take a while before we're able to show you the results. You can track the progress in your account page."
+                    extra={[
+                        <Button type='primary' onClick={handleConfirm}>Confirm</Button>,
+                        <Button onClick={handleResult}>Go to account</Button>
+                    ]}
+                />
             </div>
+
             <div className={`data-not-saved-note${uploaded || consent ? '-close' : ''}`}>⚠️Your data will NOT be saved by any means!</div>
             <div className={`data-info${uploaded ? '-close' : ''}`}>Your data should contain 30s of PPG signals. Please see <a className='link' href={`${process.env.PUBLIC_URL}/example_files/${model.ExampleFile}`} download>this example</a>.</div>
             <div className={`file-dropbox${uploaded ? '-close' : ''}`}>
@@ -142,6 +154,6 @@ export default function TestModel(props) {
 
             </div>
 
-        </>
+        </div>
     )
 }

@@ -7,10 +7,15 @@ const db = require('./models');
 const createError = require('http-errors');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
+const redis = require("redis");
+const redisUrl = "redis://127.0.0.1:6379";
+const redisClient = redis.createClient(redisUrl);
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+redisClient.connect();
 
 db.sequelize
     .sync()

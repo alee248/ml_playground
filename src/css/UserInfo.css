@@ -1,11 +1,14 @@
+@import url('Home.css');
+
 .ui-content {
     margin-left: 20px;
     margin-right: 50px;
     font-family: var(--font-family);
+    animation: fade-in 0.5s;
 }
 
 .ui-table {
-    margin-top: 20px;
+    margin-top: 10px;
     height: auto;
     transition: 0.3s;
 }
@@ -19,11 +22,34 @@
 }
 
 .ui-title {
-    margin-top: 20px;
+    display: flex;
+    position: sticky;
+    background-color: white;
+    top: 0px;
+    padding: 10px;
+    margin-top: 10px;
     color: var(--subtitle-color);
     font-size: 25px;
     cursor: pointer;
+    z-index: 5;
+    border-radius: 8px;
     transition: 0.5s;
+}
+
+.ui-title-icon {
+    margin-left: 10px;
+    transform: rotate(0deg);
+    transition: 0.3s;
+}
+
+.ui-title-icon-down {
+    margin-left: 10px;
+    transform: rotate(90deg);
+    transition: 0.3s;
+}
+
+.ui-title:hover {
+    background-color: var(--search-bar-background-color);
 }
 
 .ui-greeting {
@@ -136,4 +162,13 @@
 
 .com-delete-btn:hover {
     background-color: var(--red-hover);
+}
+
+.table-field {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.table-field:hover {
+    color: var(--dark-gray)
 }

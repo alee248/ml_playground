@@ -1,12 +1,8 @@
 const express = require('express');
 const multer = require('multer')
-var router = express.Router();
+const router = express.Router();
 const db = require('../models');
 const upload = multer();
-const redis = require("redis");
-var fs = require('fs');
-const redisUrl = "redis://127.0.0.1:6379";
-const redisClient = redis.createClient(redisUrl);
 const { Queue } = require("bullmq");
 
 const redisConfiguration = {
@@ -56,20 +52,14 @@ router.get('/:mid', (req, res) => {
 router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
     // This is the file
     const { files } = req
-
+    const { mid, uid } = req.params
     // consent === true means you can save the data locally
     const { consent } = req.body
-    console.log(files)
-    console.log(consent)
-    // const data = file.buffer
 
-    // This is the model id and user id
-    const { mid, uid } = req.params
-    console.log({ mid, uid })
-
-    let filenames = []
+    // get file names
+    let fileNames = []
     for (let i = 0; i < files.length; i++) {
-        filenames.push(files[i].originalname)
+        fileNames.push(files[i].originalname)
     }
 
     let datapath = ''
@@ -80,10 +70,10 @@ router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
     }
 
     // add record to result table
-    await db.Result.create({
+    const result = await db.Result.create({
         UserId: uid,
         ModelId: mid,
-        FileName: JSON.stringify({ filenames }),
+        FileName: JSON.stringify({ filenames: fileNames }),
         Datetime: new Date(),
         DataSaved: consent ? datapath : null
     })
@@ -93,20 +83,22 @@ router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
     // when worker successfully processed the file, save results to result.value and change result.status to 'Done'
     // when process failed, change result.status to 'Failed'
 
-    // connect to redis
-    // await redisClient.connect();
+    const fileContent = []
+    for (let file of files) {
+        fileContent.push(Buffer.from(file.buffer).toString('utf-8'))
+    }
 
-    // fs.readFile(file, 'UTF-8', function(err, csv) {
-    //     $.csv.toArrays(csv, {}, function(err, data) {
-    //       for(var i=0, len=data.length; i<len; i++) {
-    //         console.log(data[i]); //Will print every csv line as a newline
-    //       }
-    //     });
-    // });
 
-    // const myQueue = new Queue("myqueue", redisConfiguration);
-    // redisClient.set(file.originalname, JSON.stringify({ data }))
+    const mlQueue = new Queue("mlqueue", redisConfiguration);
 
+    for (let file of files) {
+        mlQueue.add(result.dataValues.Id, {
+            modelId: result.dataValues.ModelId,
+            userId: result.dataValues.UserId,
+            fileNames,
+            fileContent
+        })
+    }
 
     res.send({ "status": "done" })
 })

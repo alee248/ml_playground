@@ -12,7 +12,7 @@ export default function ModelCard(props) {
     }
 
     return (
-        <>
+        <div className='model-card-content'>
             <div className="model-pg-head">Description</div>
             <div className="model-pg-text">
                 {model.Details}
@@ -54,6 +54,6 @@ export default function ModelCard(props) {
                     </div>
                 )
             }) : ''}
-        </>
+        </div>
     )
 }

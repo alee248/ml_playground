@@ -1,7 +1,18 @@
+@import url('Home.css');
+
 .model-pg-content {
     margin-left: 20px;
     margin-right: 50px;
     font-family: var(--font-family);
+    animation: fade-in 0.5s;
+}
+
+.model-card-content {
+    animation: fade-in 0.5s;
+}
+
+.test-model-content {
+    animation: fade-in 0.5s;
 }
 
 .model-pg-title {
@@ -60,13 +71,17 @@
 .file-dropbox {
     margin-top: 10px;
     opacity: 100;
+    overflow: auto;
     transition: 0.3s;
 }
 
 .file-dropbox-close {
     margin-top: 10px;
     opacity: 0;
+    height: 0;
+    overflow: hidden;
     transition: 0.3s;
+    transition: height 0.3s 0.3s;
 }
 
 .data-not-saved-note {
@@ -132,7 +147,6 @@
 
 .link:hover {
     color: var(--blue-hover);
-    transition: 0.3s;
 }
 
 .success {
@@ -181,7 +195,6 @@
     border: 1px solid var(--green-hover);
     color: var(--green-hover);
     background-color: rgb(245, 245, 245);
-    transition: 0.3s;
 }
 
 .result-btn {
@@ -200,7 +213,6 @@
     border: 1px solid var(--blue-hover);
     color: var(--blue-hover);
     background-color: rgb(245, 245, 245);
-    transition: 0.3s;
 }
 
 .upload-btn-area {
@@ -226,7 +238,6 @@
     border: 1px solid var(--blue-hover);
     color: var(--blue-hover);
     background-color: rgb(245, 245, 245);
-    transition: 0.3s;
 }
 
 .clear-btn {
@@ -246,5 +257,4 @@
     border: 1px solid var(--red-hover);
     color: var(--red-hover);
     background-color: rgb(245, 245, 245);
-    transition: 0.3s;
 }

@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import '../css/UserInfo.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Table, message, Popconfirm } from 'antd';
+import { Table, message, Popconfirm, Popover } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
 
 const greeting = (hour) => {
     if (hour < 12 && hour > 5) {
@@ -43,27 +44,72 @@ function UserInfo(props) {
         return month + '/' + day + '/' + year.toString().substring(2) + ' ' + time
     }
 
+    const handleSort = (tablename, fieldname) => {
+        switch (tablename) {
+            case 'history':
+                if (fieldname === 'modelName' || fieldname === 'status') {
+                    historyData.sort((a, b) => {
+                        if (a[fieldname].props.children < b[fieldname].props.children) {
+                            return -1
+                        }
+                        if (a[fieldname].props.children > b[fieldname].props.children) {
+                            return 1
+                        }
+                        return 0
+                    })
+                    setHistoryData([...historyData])
+                }
+                else if (fieldname === 'date') {
+                    historyData.sort((a, b) => {
+                        return new Date(b.date) - new Date(a.date)
+                    })
+                    setHistoryData([...historyData])
+                } else {
+                    historyData.sort((a, b) => {
+
+                        if (a[fieldname] < b[fieldname]) {
+                            return -1
+                        }
+                        if (a[fieldname] > b[fieldname]) {
+                            return 1
+                        }
+                        return 0
+                    })
+
+                    setHistoryData([...historyData])
+                }
+                break
+
+            case 'comments':
+
+                break
+
+            default:
+                break
+        }
+    }
+
     const historyColumns = [
         {
-            title: 'Model',
+            title: <Popover content="Click to sort" trigger='hover'><div className='table-field' onClick={() => handleSort('history', 'modelName')}>Model</div></Popover>,
             dataIndex: 'modelName',
             key: 'modelName'
         },
         {
-            title: 'Version',
+            title: <Popover content="Click to sort" trigger='hover'><div className='table-field' onClick={() => handleSort('history', 'version')}>Version</div></Popover>,
             dataIndex: 'version',
             key: 'version',
             width: 80,
             align: 'center'
         },
         {
-            title: 'File Name',
+            title: <Popover content="Click to sort" trigger='hover'><div className='table-field' onClick={() => handleSort('history', 'fileName')}>File Names</div></Popover>,
             dataIndex: 'fileName',
             key: 'fileName',
             align: 'center'
         },
         {
-            title: 'Status',
+            title: <Popover content="Click to sort" trigger='hover'><div className='table-field' onClick={() => handleSort('history', 'status')}>Status</div></Popover>,
             dataIndex: 'status',
             key: 'status',
             align: 'center',
@@ -77,7 +123,7 @@ function UserInfo(props) {
             width: 70
         },
         {
-            title: 'Date',
+            title: <Popover content="Click to sort" trigger='hover'><div className='table-field' onClick={() => handleSort('history', 'date')}>Date</div></Popover>,
             dataIndex: 'date',
             key: 'date',
             align: 'center'
@@ -140,12 +186,12 @@ function UserInfo(props) {
     }
 
     const handleFoldHistory = () => {
-        setCookie('hf', !historyFold, { expires: new Date(new Date().getTime + 2*3600*1000) })
+        setCookie('hf', !historyFold, { expires: new Date(new Date().getTime + 2 * 3600 * 1000) })
         setHistoryFold(!historyFold)
     }
 
     const handleFoldComments = () => {
-        setCookie('cf', !commentsFold, { expires: new Date(new Date().getTime + 2*3600*1000) })
+        setCookie('cf', !commentsFold, { expires: new Date(new Date().getTime + 2 * 3600 * 1000) })
         setCommentsFold(!commentsFold)
     }
 
@@ -162,9 +208,9 @@ function UserInfo(props) {
             })
         }
     }
-    
+
     const handleHistoryCancel = e => {
-        
+
     }
 
     useEffect(() => {
@@ -207,14 +253,36 @@ function UserInfo(props) {
                         status: res.data[i].Status === 'Done' ? (<div className='status-done'>Done</div>) : (res.data[i].Status === 'Failed' ? <div className='status-failed'>Failed</div> : <div className='status'>{res.data[i].Status}</div>),
                         results: res.data[i].Status === 'Done' || res.data[i].Status === 'Failed' ? (<div className='res-pg-btn' id={res.data[i].Id} onClick={handleShowResult}>Result</div>) : '-',
                         date: getDate(res.data[i].Datetime),
-                        action: (
-                            <Popconfirm title="Delete confirm" description="Are you sre to delete this task?" onConfirm={() => handleHistoryConfirm(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)} onCancel={handleHistoryCancel} okText="yes" cancelText="No">
-                                <div className={`delete-job-btn${res.data[i].Status !== 'Processing' ? '' : '-disabled'}`} id={res.data[i].Id} onClick={() => handleDeleteResult(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)}>Delete</div>
+                        action: res.data[i].Status !== 'Processing' ? (
+                            <Popconfirm
+                                title="Delete confirm"
+                                description="Are you sre to delete this task?"
+                                onConfirm={() => handleHistoryConfirm(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)}
+                                onCancel={handleHistoryCancel}
+                                okText="yes"
+                                cancelText="No"
+                            >
+                                <div className='delete-job-btn'
+                                    id={res.data[i].Id}
+                                    onClick={() => handleDeleteResult(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)}
+                                >
+                                    Delete
+                                </div>
                             </Popconfirm>
+                        ) : (
+                            <div className='delete-job-btn-disabled'
+                                id={res.data[i].Id} onClick={() => handleDeleteResult(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)}
+                            >
+                                Delete
+                            </div>
                         )
                     })
                 }
             }
+
+            data.sort((a, b) => {
+                return new Date(b.date) - new Date(a.date)
+            })
 
             setHistoryData(data)
             setHistoryLoading(false)
@@ -256,12 +324,22 @@ function UserInfo(props) {
                     {greeting(new Date().getHours()) + props.username}!
                 </div>
 
-                <div className="ui-title" onClick={handleFoldHistory}>History</div>
+                <div className="ui-title" onClick={handleFoldHistory}>
+                    History
+                    <div className={`ui-title-icon${historyFold ? '-down' : ''}`}>
+                        <CaretRightOutlined />
+                    </div>
+                </div>
                 <div className={`ui-table${historyFold ? '-folded' : ''}`}>
                     <Table pagination={{ position: ['bottomCenter'] }} tableLayout='auto' size='middle' loading={historyLoading} columns={historyColumns} dataSource={historyData} />
                 </div>
 
-                <div className="ui-title" onClick={handleFoldComments}>Comments</div>
+                <div className="ui-title" onClick={handleFoldComments}>
+                    Comments
+                    <div className={`ui-title-icon${commentsFold ? '-down' : ''}`}>
+                        <CaretRightOutlined />
+                    </div>
+                </div>
                 <div className={`ui-table${commentsFold ? '-folded' : ''}`}>
                     <Table pagination={{ position: ['bottomCenter'] }} tableLayout='auto' size='middle' loading={commentLoading} columns={commentsColumns} dataSource={comments} />
                 </div>
