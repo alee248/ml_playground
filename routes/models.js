@@ -11,10 +11,10 @@ const { Queue } = require("bullmq");
 
 const redisConfiguration = {
     connection: {
-      host: "127.0.0.1",
-      port: "6379",
+        host: "127.0.0.1",
+        port: "6379",
     },
-  };
+};
 
 // get all models
 router.get('/', (req, res) => {
@@ -55,16 +55,20 @@ router.get('/:mid', (req, res) => {
 // TODO: push the file to redis
 router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
     // This is the file
-    const files = req.files
+    const { files } = req
+    
+    // consent === true means you can save the data locally
+    const { consent } = req.body
     console.log(files)
+    console.log(consent)
     // const data = file.buffer
 
     // This is the model id and user id
     const { mid, uid } = req.params
-    console.log({mid, uid})
+    console.log({ mid, uid })
 
     let filenames = []
-    for (let i=0; i<files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
         filenames.push(files[i].originalname)
     }
 

@@ -92,6 +92,21 @@
     transition: 0.3s;
 }
 
+.data-saving-consent {
+    margin-top: 20px;
+    color: var(--content-color);
+    transition: 0.3s;
+}
+
+/* .data-saving-consent-close {
+    margin-top: 20px;
+    color: var(--content-color);
+    height: 0px;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.3s;
+} */
+
 .data-info {
     margin-top: 10px;
     height: 19px;

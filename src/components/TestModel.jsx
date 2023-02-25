@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../css/ModelPage.css'
 import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
+import { message, Upload, Checkbox } from 'antd';
 import axios from 'axios';
 
 
@@ -16,6 +16,11 @@ export default function TestModel(props) {
     const uid = props.uid
     const [uploaded, setUploaded] = useState(false)
     const [files, setFiles] = useState([])
+    const [consent, setConsent] = useState(false)
+
+    const handleConsent = e => {
+        setConsent(e.target.checked)
+    }
 
     const handleAction = ({ file, onSuccess, onError }) => {
         if (file.type === 'text/csv') {
@@ -33,14 +38,17 @@ export default function TestModel(props) {
         if (files.length > 0) {
             // console.log(files)
             let formData = new FormData()
-            for (let i=0; i<files.length; i++) {
+            for (let i = 0; i < files.length; i++) {
                 if (files[i].type === 'text/csv') {
                     formData.append('files', files[i])
                 } else {
                     message.error('Wrong format!')
                 }
-                
+
             }
+
+            formData.append('consent', consent)
+
             axios({
                 method: 'post',
                 url: `${props.server}/api/models/test/${model.Id}/${uid}`,
@@ -125,6 +133,9 @@ export default function TestModel(props) {
                         Support only for .csv files
                     </p>
                 </Dragger>
+                <div className={`data-saving-consent${uploaded ? '-close' : ''}`}>
+                    <Checkbox onChange={handleConsent}>By checking this checkbox, you agree to give the website permission to save the data you uploaded for any legal usage, and you will have advanced access to more analysis tools we provided. </Checkbox>
+                </div>
                 <div className="upload-btn-area">
                     <div className="upload-btn" onClick={handleUpload}>Upload</div>
                     <div className="clear-btn" onClick={handleClear}>Clear</div>
