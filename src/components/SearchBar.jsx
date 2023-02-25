@@ -48,14 +48,14 @@ function SearchBar(props) {
     return (
         <div className='search-bar-content'>
             <div className="search-bar">
-                <div className="search-icon">
+                <div className="search-icon" style={{color: props.login ? '' : 'rgb(245, 245, 245)'}}>
                     <SearchOutlined />
                 </div>
-                <input id='search-input' className='search-space' placeholder='Search the website' onChange={handleInput} />
+                <input id='search-input' className='search-space' placeholder={props.login ? 'Search the website' : ''} disabled={!props.login} onChange={handleInput} />
             </div>
 
             <div className="searchbar-btn">
-                <Button type='link' style={{ fontSize: '18px' }} onClick={handleSearch}>{changed ? 'Search' : 'Clear'}</Button>
+                <Button type='link' style={{ fontSize: '18px' }} onClick={handleSearch} disabled={!props.login}>{changed ? 'Search' : 'Clear'}</Button>
             </div>
         </div>
     )
@@ -63,7 +63,7 @@ function SearchBar(props) {
 
 const mapStateToProps = (state) => {
     return {
-        login: state.login,
+        login: parseInt(state.login),
         uid: state.uid,
         username: state.username,
         email: state.email,

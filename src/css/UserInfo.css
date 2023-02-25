@@ -46,6 +46,10 @@
     cursor: pointer;
 }
 
+.res-pg-btn:hover {
+    background-color: var(--blue-hover);
+}
+
 .delete-job-btn {
     background-color: var(--red);
     padding: 5px;

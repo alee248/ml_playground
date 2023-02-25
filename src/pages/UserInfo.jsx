@@ -236,8 +236,7 @@ function UserInfo(props) {
                             model: (<a href={`/models/${res.data[i].Model.Id}`}>{res.data[i].Model.Name}</a>),
                             date: getDate(res.data[i].Datetime),
                             action: (<div className='com-btn-area'>
-                                <div className='com-btn' id={res.data[i].Id} onClick={handleResult}>Edit</div>
-                                <div className='com-delete-btn' id={res.data[i].Id} onClick={handleResult} style={{ marginLeft: '1em' }}>Delete</div>
+                                <div className='com-delete-btn' id={res.data[i].Id} onClick={handleResult}>Delete</div>
                                 <div className='com-btn' id={res.data[i].Id} onClick={handleResult} style={{ marginLeft: '1em' }}>Show</div>
                             </div>)
                         })
@@ -249,9 +248,6 @@ function UserInfo(props) {
             setCommentLoading(false)
         })
     }, [])
-
-
-
 
     return (
         <>
