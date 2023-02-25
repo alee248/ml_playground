@@ -2,20 +2,47 @@ import React, { useState } from 'react'
 import '../css/SearchBar.css'
 import { connect } from 'react-redux'
 import { SearchOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd'
 import debounce from './Debounce';
 
-function SearchBar() {
+function SearchBar(props) {
+
+    const navigate = useNavigate()
 
     const [input, setInput] = useState('')
+    const [changed, setChanged] = useState(true)
 
-    const updateInput = e => setInput(e.target.value)
+    const updateInput = e => {
+        setInput(e.target.value)
+        setChanged(true)
+    }
 
     const handleInput = debounce(updateInput)
 
     const handleSearch = () => {
-        // TODO
-        console.log(input)
+        if (changed) {
+            if (input !== '') {
+                setChanged(false)
+                navigate(`/search?input=${input}`)
+            } else {
+                setChanged(true)
+                if (window.location.pathname === '/search') {
+                    navigate('/')
+                }
+            }
+
+        } else {
+            if (input === '') {
+                navigate('/')
+            } else {
+                setInput('')
+                document.getElementById('search-input').value = ''
+                setChanged(true)
+            }
+
+        }
+
     }
 
     return (
@@ -24,11 +51,11 @@ function SearchBar() {
                 <div className="search-icon">
                     <SearchOutlined />
                 </div>
-                <input className='search' placeholder='Search the website' onChange={handleInput} />
+                <input id='search-input' className='search-space' placeholder='Search the website' onChange={handleInput} />
             </div>
 
-            <div className="search-btn">
-                <Button type='link' style={{fontSize: '18px'}} onClick={handleSearch}>Search</Button>
+            <div className="searchbar-btn">
+                <Button type='link' style={{ fontSize: '18px' }} onClick={handleSearch}>{changed ? 'Search' : 'Clear'}</Button>
             </div>
         </div>
     )

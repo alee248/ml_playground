@@ -9,6 +9,7 @@ import ProjectPage from '../pages/ProjectPage'
 import ModelPage from '../pages/ModelPage'
 import UserInfo from '../pages/UserInfo'
 import Results from '../pages/Results'
+import Search from '../pages/Search'
 
 const BaseRouter = () => (
     <BrowserRouter forceRefresh={false}>
@@ -21,6 +22,7 @@ const BaseRouter = () => (
                 <Route path='/models/:mid' element={<ModelPage />}></Route>
                 <Route path='/userinfo' element={<UserInfo />}></Route>
                 <Route path='/userinfo/results' element={<Results />}></Route>
+                <Route path='/search' element={<Search />}></Route>
             </Route>
             <Route path='/login' element={<Login />}></Route>
             <Route path="/*" element={<Error />}></Route>

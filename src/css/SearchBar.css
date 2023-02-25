@@ -26,7 +26,7 @@
     font-size: 20px;
 }
 
-.search {
+.search-space {
     height: 25px;
     margin-top: 12px;
     width: calc(100% - 70px);
@@ -37,7 +37,7 @@
     font-size: 16px;
 }
 
-.search-btn {
+.searchbar-btn {
     width: 15%;
     line-height: 50px;
     text-align: center;

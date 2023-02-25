@@ -41,6 +41,7 @@ function NaviBar(props) {
 
     }
 
+
     return (
         <>
             <div className="navibar-content">

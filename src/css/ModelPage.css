@@ -72,7 +72,7 @@
 .data-not-saved-note {
     color: var(--red);
     height: 21px;
-    margin-top: 20px;
+    margin-top: 10px;
     cursor: default;
     transition: 0.3s;
 }

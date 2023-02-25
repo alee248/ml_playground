@@ -118,7 +118,7 @@ export default function TestModel(props) {
                     <div className="result-btn" onClick={handleResult} style={{ cursor: uploaded ? 'pointer' : 'default' }}>Results</div>
                 </div>
             </div>
-            <div className={`data-not-saved-note${uploaded ? '-close' : ''}`}>⚠️Your data will NOT be saved by any means!</div>
+            <div className={`data-not-saved-note${uploaded || consent ? '-close' : ''}`}>⚠️Your data will NOT be saved by any means!</div>
             <div className={`data-info${uploaded ? '-close' : ''}`}>Your data should contain 30s of PPG signals. Please see <a className='link' href={`${process.env.PUBLIC_URL}/example_files/${model.ExampleFile}`} download>this example</a>.</div>
             <div className={`file-dropbox${uploaded ? '-close' : ''}`}>
                 <Dragger {...args}>
@@ -133,7 +133,7 @@ export default function TestModel(props) {
                     </p>
                 </Dragger>
                 <div className={`data-saving-consent${uploaded ? '-close' : ''}`}>
-                    <Checkbox onChange={handleConsent}>By checking this checkbox, you agree to give the website permission to save the data you uploaded for any legal usage, and you will have advanced access to more analysis tools we provided. </Checkbox>
+                    <Checkbox onChange={handleConsent}>By checking this checkbox, you agree to give the website permission to save the data you uploaded for any legal usage, and you will have advanced access to more analysis tools we provide.</Checkbox>
                 </div>
                 <div className="upload-btn-area">
                     <div className="upload-btn" onClick={handleUpload}>Upload</div>

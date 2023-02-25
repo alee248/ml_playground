@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
           [Op.like]: `%${title}%`,
         },
       },
-      attributes: ["Id", "Title"],
+      attributes: ["Id", "Title", "Description"],
     });
     searcharr["projects"] = projects;
   } catch (err) {
@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
           [Op.like]: `%${title}%`,
         },
       },
-      attributes: ["Id", "Name"],
+      attributes: ["Id", "Name", "Details"],
     });
     searcharr["models"] = models;
   } catch (err) {
