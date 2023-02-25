@@ -17,7 +17,7 @@ export default function TestModel(props) {
     const [uploaded, setUploaded] = useState(false)
     const [files, setFiles] = useState([])
 
-    const handleUpload = ({ file, onSuccess, onError }) => {
+    const handleAction = ({ file, onSuccess, onError }) => {
         if (file.type === 'text/csv') {
             let tmp = files
             tmp.push(file)
@@ -27,55 +27,74 @@ export default function TestModel(props) {
             message.error('Please upload a .csv file!')
             onError("Wrong format!")
         }
+    }
 
+    const handleUpload = () => {
+        if (files.length > 0) {
+            // console.log(files)
+            let formData = new FormData()
+            for (let i=0; i<files.length; i++) {
+                if (files[i].type === 'text/csv') {
+                    formData.append('files', files[i])
+                } else {
+                    message.error('Wrong format!')
+                }
+                
+            }
+            axios({
+                method: 'post',
+                url: `${props.server}/api/models/test/${model.Id}/${uid}`,
+                data: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(() => {
+                // onSuccess("ok")
+                setFiles([])
+                setUploaded(true)
+            })
+        } else {
+            message.error('Please add files first!')
+        }
+    }
 
-        // check format
-        // if (file.type === 'text/csv') {
-        //     let formData = new FormData()
-        //     formData.append('file', file)
-        //     axios({
-        //         method: 'post',
-        //         url: `${props.server}/api/models/test/${model.Id}/${uid}`,
-        //         data: formData,
-        //         headers: {
-        //             'Content-Type': 'multipart/form-data'
-        //         }
-        //     }).then((res) => {
-        //         onSuccess("ok")
-        //         setUploaded(true)
-        //     })
-        // } else {
-        //     message.error('Please upload a .csv file!')
-        //     onError("Wrong format!")
-        // }
-
-
+    const handleClear = () => {
+        setFiles([])
     }
 
     const handleChange = e => {
-        const { status } = e.file;
+        const { status, uid } = e.file;
+        if (status === 'removed') {
+            setFiles(curr => curr.filter(file => file.uid !== uid))
+        }
         if (status !== 'uploading') {
-            console.log(e.file, e.fileList);
+            // console.log(e.file, e.fileList);
         }
         if (status === 'done') {
-            message.success(`${e.file.name} file uploaded successfully.`);
+            // message.success(`${e.file.name} file uploaded successfully.`);
         } else if (status === 'error') {
-            message.error(`${e.file.name} file upload failed.`);
+            // message.error(`${e.file.name} file upload failed.`);
         }
     }
 
     const handleConfirm = () => {
-        setUploaded(false)
+        if (uploaded === true) {
+            setUploaded(false)
+        }
+
     }
 
     const handleResult = () => {
-        navigate('/userinfo')
+        if (uploaded === true) {
+            navigate('/userinfo')
+        }
+
     }
 
     const args = {
         name: 'file',
         multiple: true,
-        customRequest: handleUpload,
+        customRequest: handleAction,
         onChange: handleChange,
         onDrop(e) {
             console.log('Dropped files', e.dataTransfer.files);
@@ -85,6 +104,13 @@ export default function TestModel(props) {
 
     return (
         <>
+            <div className={`success${uploaded ? '' : '-close'}`}>
+                <div className="success-info">You have successfully uploaded your file!</div>
+                <div className="confirm-btn-area">
+                    <div className="confirm-btn" onClick={handleConfirm} style={{ cursor: uploaded ? 'pointer' : 'default' }}>Confirm</div>
+                    <div className="result-btn" onClick={handleResult} style={{ cursor: uploaded ? 'pointer' : 'default' }}>Results</div>
+                </div>
+            </div>
             <div className={`data-not-saved-note${uploaded ? '-close' : ''}`}>⚠️Your data will NOT be saved by any means!</div>
             <div className={`data-info${uploaded ? '-close' : ''}`}>Your data should contain 30s of PPG signals. Please see <a className='link' href={`${process.env.PUBLIC_URL}/example_files/${model.ExampleFile}`} download>this example</a>.</div>
             <div className={`file-dropbox${uploaded ? '-close' : ''}`}>
@@ -96,17 +122,14 @@ export default function TestModel(props) {
                         Click or drag file to this area to upload
                     </p>
                     <p className="ant-upload-hint">
-                        Support only for a single .csv file
+                        Support only for .csv files
                     </p>
                 </Dragger>
-            </div>
-
-            <div className={`success${uploaded ? '' : '-close'}`}>
-                <div className="success-info">You have successfully uploaded your file!</div>
-                <div className="confirm-btn-area">
-                    <div className="confirm-btn" onClick={handleConfirm}>Confirm</div>
-                    <div className="result-btn" onClick={handleResult}>Results</div>
+                <div className="upload-btn-area">
+                    <div className="upload-btn" onClick={handleUpload}>Upload</div>
+                    <div className="clear-btn" onClick={handleClear}>Clear</div>
                 </div>
+
             </div>
 
         </>

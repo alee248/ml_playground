@@ -59,15 +59,12 @@
 
 .file-dropbox {
     margin-top: 10px;
-    height: 190px;
     opacity: 100;
     transition: 0.3s;
 }
 
 .file-dropbox-close {
     margin-top: 10px;
-    height: 0px;
-    overflow: hidden;
     opacity: 0;
     transition: 0.3s;
 }
@@ -187,6 +184,52 @@
 .result-btn:hover {
     border: 1px solid var(--blue-hover);
     color: var(--blue-hover);
+    background-color: rgb(245, 245, 245);
+    transition: 0.3s;
+}
+
+.upload-btn-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+    /* border: 1px solid black; */
+}
+
+.upload-btn {
+    text-align: center;
+    border: 1px solid var(--blue);
+    border-radius: 10px;
+    color: var(--blue);
+    font-size: 16px;
+    width: 70px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-btn:hover {
+    border: 1px solid var(--blue-hover);
+    color: var(--blue-hover);
+    background-color: rgb(245, 245, 245);
+    transition: 0.3s;
+}
+
+.clear-btn {
+    margin-left: 20px;
+    text-align: center;
+    border: 1px solid var(--red);
+    border-radius: 10px;
+    color: var(--red);
+    font-size: 16px;
+    width: 70px;
+    padding: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.clear-btn:hover {
+    border: 1px solid var(--red-hover);
+    color: var(--red-hover);
     background-color: rgb(245, 245, 245);
     transition: 0.3s;
 }

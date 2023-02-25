@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import '../css/UserInfo.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Table, message } from 'antd';
+import { Table, message, Popconfirm } from 'antd';
 
 const greeting = (hour) => {
     if (hour < 12 && hour > 5) {
@@ -125,18 +125,18 @@ function UserInfo(props) {
     }
 
     const handleDeleteResult = (id, disabled) => {
-        if (!disabled) {
-            // delete record
-            axios({
-                method: 'get',
-                url: `${props.server}/api/results/delete/${id}`
-            }).then(res => {
-                if (res.data && res.data.result === 'succeed') {
-                    message.success('Successfully deleted!')
-                    window.location.reload(false)
-                }
-            })
-        }
+        // if (!disabled) {
+        //     // delete record
+        //     axios({
+        //         method: 'get',
+        //         url: `${props.server}/api/results/delete/${id}`
+        //     }).then(res => {
+        //         if (res.data && res.data.result === 'succeed') {
+        //             message.success('Successfully deleted!')
+        //             window.location.reload(false)
+        //         }
+        //     })
+        // }
     }
 
     const handleFoldHistory = () => {
@@ -147,6 +147,24 @@ function UserInfo(props) {
     const handleFoldComments = () => {
         setCookie('cf', !commentsFold, { expires: new Date(new Date().getTime + 2*3600*1000) })
         setCommentsFold(!commentsFold)
+    }
+
+    const handleHistoryConfirm = (id, disabled) => {
+        if (!disabled) {
+            // delete record
+            axios({
+                method: 'get',
+                url: `${props.server}/api/results/delete/${id}`
+            }).then(res => {
+                if (res.data && res.data.result === 'succeed') {
+                    window.location.reload(false)
+                }
+            })
+        }
+    }
+    
+    const handleHistoryCancel = e => {
+        
     }
 
     useEffect(() => {
@@ -174,15 +192,26 @@ function UserInfo(props) {
             const data = []
             if (res.data.length > 0) {
                 for (let i = 0; i < res.data.length; i++) {
+                    let filenames = JSON.parse(res.data[i].FileName).filenames
+                    let filename = ''
+                    if (filenames.length > 1) {
+                        filename = `${filenames[0]}...`
+                    } else {
+                        filename = filenames[0]
+                    }
                     data.push({
                         key: res.data[i].Id,
                         modelName: (<a href={`/models/${res.data[i].Model.Id}`}>{res.data[i].Model.Name}</a>),
                         version: res.data[i].Model.Version,
-                        fileName: res.data[i].FileName,
+                        fileName: filename,
                         status: res.data[i].Status === 'Done' ? (<div className='status-done'>Done</div>) : (res.data[i].Status === 'Failed' ? <div className='status-failed'>Failed</div> : <div className='status'>{res.data[i].Status}</div>),
                         results: res.data[i].Status === 'Done' || res.data[i].Status === 'Failed' ? (<div className='res-pg-btn' id={res.data[i].Id} onClick={handleShowResult}>Result</div>) : '-',
                         date: getDate(res.data[i].Datetime),
-                        action: <div className={`delete-job-btn${res.data[i].Status !== 'Processing' ? '' : '-disabled'}`} id={res.data[i].Id} onClick={() => handleDeleteResult(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)}>Delete</div>
+                        action: (
+                            <Popconfirm title="Delete confirm" description="Are you sre to delete this task?" onConfirm={() => handleHistoryConfirm(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)} onCancel={handleHistoryCancel} okText="yes" cancelText="No">
+                                <div className={`delete-job-btn${res.data[i].Status !== 'Processing' ? '' : '-disabled'}`} id={res.data[i].Id} onClick={() => handleDeleteResult(res.data[i].Id, res.data[i].Status !== 'Processing' ? 0 : 1)}>Delete</div>
+                            </Popconfirm>
+                        )
                     })
                 }
             }

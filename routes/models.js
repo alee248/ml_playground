@@ -53,41 +53,47 @@ router.get('/:mid', (req, res) => {
 });
 
 // TODO: push the file to redis
-router.post('/test/:mid/:uid', upload.single('file'), async (req, res) => {
+router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
     // This is the file
-    const file = req.file
-    const data = file.buffer
+    const files = req.files
+    console.log(files)
+    // const data = file.buffer
 
     // This is the model id and user id
     const { mid, uid } = req.params
     console.log({mid, uid})
 
+    let filenames = []
+    for (let i=0; i<files.length; i++) {
+        filenames.push(files[i].originalname)
+    }
+
     // add record to result table
     await db.Result.create({
         UserId: uid,
         ModelId: mid,
-        FileName: file.originalname,
+        FileName: JSON.stringify({ filenames }),
         Datetime: new Date()
     })
 
-    // when pushed to redis or failed, send status back
-    // when worker pulls the file from redis, change result.status to 'Processing'
-    // when worker successfully processed the file, save results to result.value and change result.status to 'Done'
-    // when process failed, change result.status to 'Failed'
+    // // when pushed to redis or failed, send status back
+    // // when worker pulls the file from redis, change result.status to 'Processing'
+    // // when worker successfully processed the file, save results to result.value and change result.status to 'Done'
+    // // when process failed, change result.status to 'Failed'
 
-    // connect to redis
-    await redisClient.connect();
+    // // connect to redis
+    // await redisClient.connect();
 
-    fs.readFile(file, 'UTF-8', function(err, csv) {
-        $.csv.toArrays(csv, {}, function(err, data) {
-          for(var i=0, len=data.length; i<len; i++) {
-            console.log(data[i]); //Will print every csv line as a newline
-          }
-        });
-    });
+    // fs.readFile(file, 'UTF-8', function(err, csv) {
+    //     $.csv.toArrays(csv, {}, function(err, data) {
+    //       for(var i=0, len=data.length; i<len; i++) {
+    //         console.log(data[i]); //Will print every csv line as a newline
+    //       }
+    //     });
+    // });
 
-    // const myQueue = new Queue("myqueue", redisConfiguration);
-    // redisClient.set(file.originalname, JSON.stringify({ data }))
+    // // const myQueue = new Queue("myqueue", redisConfiguration);
+    // // redisClient.set(file.originalname, JSON.stringify({ data }))
 
 
     res.send({ "status": "done" })
