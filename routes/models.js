@@ -56,7 +56,7 @@ router.get('/:mid', (req, res) => {
 router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
     // This is the file
     const { files } = req
-    
+
     // consent === true means you can save the data locally
     const { consent } = req.body
     console.log(files)
@@ -72,20 +72,28 @@ router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
         filenames.push(files[i].originalname)
     }
 
+    let datapath = ''
+    if (consent === 'true') {
+        // save the data and provide datapath
+        // for multiple data, save in a folder and provide folder path
+        datapath = 'saved-data-path'
+    }
+
     // add record to result table
     await db.Result.create({
         UserId: uid,
         ModelId: mid,
         FileName: JSON.stringify({ filenames }),
-        Datetime: new Date()
+        Datetime: new Date(),
+        DataSaved: consent ? datapath : null
     })
 
-    // // when pushed to redis or failed, send status back
-    // // when worker pulls the file from redis, change result.status to 'Processing'
-    // // when worker successfully processed the file, save results to result.value and change result.status to 'Done'
-    // // when process failed, change result.status to 'Failed'
+    // when pushed to redis or failed, send status back
+    // when worker pulls the file from redis, change result.status to 'Processing'
+    // when worker successfully processed the file, save results to result.value and change result.status to 'Done'
+    // when process failed, change result.status to 'Failed'
 
-    // // connect to redis
+    // connect to redis
     // await redisClient.connect();
 
     // fs.readFile(file, 'UTF-8', function(err, csv) {
@@ -96,8 +104,8 @@ router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
     //     });
     // });
 
-    // // const myQueue = new Queue("myqueue", redisConfiguration);
-    // // redisClient.set(file.originalname, JSON.stringify({ data }))
+    // const myQueue = new Queue("myqueue", redisConfiguration);
+    // redisClient.set(file.originalname, JSON.stringify({ data }))
 
 
     res.send({ "status": "done" })

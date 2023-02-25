@@ -31,6 +31,10 @@ const ResultModel = function (sequelize, DataTypes) {
             Datetime: {
                 type: DataTypes.DATE,
                 allowNull: false
+            },
+            DataSaved: {
+                type: DataTypes.TEXT,
+                allowNull: true
             }
         },
         {

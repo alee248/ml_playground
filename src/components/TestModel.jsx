@@ -46,7 +46,6 @@ export default function TestModel(props) {
                 }
 
             }
-
             formData.append('consent', consent)
 
             axios({
