@@ -30,19 +30,19 @@ function UserInfo(props) {
     const [comments, setComments] = useState([])
     const [historyLoading, setHistoryLoading] = useState(false);
     const [commentLoading, setCommentLoading] = useState(false);
-    const [profileFold, setProfileFold] = useState(false)
-    const [historyFold, setHistoryFold] = useState(false)
-    const [commentsFold, setCommentsFold] = useState(false)
+    const [profileFold, setProfileFold] = useState(true)
+    const [historyFold, setHistoryFold] = useState(true)
+    const [commentsFold, setCommentsFold] = useState(true)
 
     const getDate = d => {
         let res = ''
         let datetime = new Date(d)
         let year = datetime.getFullYear()
-        let month = datetime.getMonth()
-        let day = datetime.getDay()
+        let month = datetime.getMonth() + 1
+        let day = datetime.getDate()
         let time = datetime.toString().substring(16, 21)
 
-        return month + '/' + day + '/' + year.toString().substring(2) + ' ' + time
+        return `${month}/${day}/${year.toString().substring(2)} ${time}`
     }
 
     const handleSort = (tablename, fieldname) => {
@@ -186,7 +186,7 @@ function UserInfo(props) {
         // }
     }
     const handleFoldProfile = () => {
-        setCookie('hf', !profileFold, { expires: new Date(new Date().getTime + 2 * 3600 * 1000) })
+        setCookie('pf', !profileFold, { expires: new Date(new Date().getTime + 2 * 3600 * 1000) })
         setProfileFold(!profileFold)
     }
 
@@ -223,12 +223,17 @@ function UserInfo(props) {
             navigate('/')
         }
 
-        if (cookies['hf'] !== undefined && cookies['hf'] === 'true') {
-            setHistoryFold(true)
+        if (cookies['pf'] === undefined || cookies['pf'] === 'false') {
+            setProfileFold(false)
         }
 
-        if (cookies['cf'] !== undefined && cookies['cf'] === 'true') {
-            setCommentsFold(true)
+
+        if (cookies['hf'] === undefined || cookies['hf'] === 'false') {
+            setHistoryFold(false)
+        }
+
+        if (cookies['cf'] === undefined || cookies['cf'] === 'false') {
+            setCommentsFold(false)
         }
 
         setHistoryLoading(true)
@@ -342,7 +347,6 @@ function UserInfo(props) {
                         <Descriptions.Item label='Username'>{props.username}</Descriptions.Item>
                     </Descriptions>
                 </div>
-
                 
 
                 <div className="ui-title" onClick={handleFoldHistory}>
@@ -353,7 +357,7 @@ function UserInfo(props) {
                 </div>
                 <div className={`ui-table${historyFold ? '-folded' : ''}`}>
                     <div className="ui-table-filter">
-                        filter
+                        {/* apply filter here*/}
                     </div>
                     <Table pagination={{ position: ['bottomCenter'], defaultPageSize: 4 }} tableLayout='auto' size='middle' loading={historyLoading} columns={historyColumns} dataSource={historyData} />
                 </div>
