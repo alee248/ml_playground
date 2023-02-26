@@ -326,7 +326,7 @@ function UserInfo(props) {
     return (
         <>
             <div className="ui-content">
-                <div className="ui-greeting">
+                <div className={`ui-greeting${props.usertype === 'Regular' ? '' : '-prime'}`}>
                     {greeting(new Date().getHours()) + props.username}!
                 </div>
 
@@ -378,6 +378,7 @@ const mapStateToProps = (state) => {
         uid: state.uid,
         username: state.username,
         email: state.email,
+        usertype: state.usertype,
         server: state.server
     }
 }

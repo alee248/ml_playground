@@ -1,6 +1,8 @@
 @import url('Home.css');
 
 .ui-content {
+    display: flex;
+    flex-direction: column;
     margin-left: 20px;
     margin-right: 50px;
     font-family: var(--font-family);
@@ -75,7 +77,18 @@
 .ui-greeting {
     margin-bottom: 30px;
     color: var(--blue);
-    font-size: 30px;
+    width: auto;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.ui-greeting-prime {
+    margin-bottom: 30px;
+    background: var(--lg-dark-gold);
+    background-clip: text;
+    color: transparent;
+    font-size: 40px;
+    font-weight: 700;
 }
 
 .ui-text {

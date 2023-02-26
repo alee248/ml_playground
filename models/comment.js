@@ -19,6 +19,10 @@ const CommentModel = function (sequelize, DataTypes) {
                 type: DataTypes.TEXT,
                 allowNull: false
             },
+            Images: {
+                type: DataTypes.TEXT,
+                allowNull: true
+            },
             Datetime: {
                 type: DataTypes.DATE,
                 allowNull: false

@@ -142,9 +142,51 @@
 }
 
 .login-box-closed:hover {
-    background-color: var(--blue-hover);
+    background: var(--blue-hover);
     color: white;
     transition: 0.2s;
+}
+
+.login-box-prime {
+    background: var(--lg-gold);
+    color: white;
+    margin-top: 80px;
+    height: 80px;
+    width: 200px;
+    border-radius: 10px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 18px;
+    font-family: var(--font-family);
+    font-weight: 350;
+    filter: drop-shadow(1px 1px 10px rgb(255, 233, 87));
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.login-box-prime:hover {
+    background: var(--lg-gold-hover);
+}
+
+.login-box-prime-closed {
+    background: var(--lg-gold);
+    color: white;
+    margin-top: 80px;
+    margin-left: 5px;
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    line-height: 70px;
+    text-align: center;
+    font-size: 15px;
+    font-family: var(--font-family);
+    font-weight: 350;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.login-box-prime-closed:hover {
+    background: var(--lg-gold-hover);
 }
 
 .userinfo {

@@ -3,6 +3,7 @@ let username = sessionStorage.getItem('username') ? sessionStorage.getItem('user
 let uid = sessionStorage.getItem('uid') ? sessionStorage.getItem('uid') : -1
 let email = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : null
 let password = sessionStorage.getItem('password') ? sessionStorage.getItem('password') : null
+let usertype = sessionStorage.getItem('usertype') ? sessionStorage.getItem('usertype') : 'Regular'
 let sidebarOpen = sessionStorage.getItem('sidebarOpen') ? sessionStorage.getItem('sidebarOpen') : 1
 
 const defaultState = {
@@ -11,6 +12,7 @@ const defaultState = {
     password,
     uid,
     email,
+    usertype,
     sidebarOpen,
     routeName: '',
     server: 'http://localhost:8080'
@@ -27,11 +29,13 @@ export default (state = defaultState, action) => {
             sessionStorage.setItem('uid', user.Id)
             sessionStorage.setItem('email', user.Email)
             sessionStorage.setItem('password', user.Password)
+            sessionStorage.setItem('usertype', user.Type)
             newState.login = sessionStorage.getItem('login')
             newState.username = sessionStorage.getItem('username')
             newState.uid = sessionStorage.getItem('uid')
             newState.email = sessionStorage.getItem('email')
             newState.password = sessionStorage.getItem('password')
+            newState.usertype = sessionStorage.getItem('usertype')
             break
 
         case "logout":
@@ -40,11 +44,13 @@ export default (state = defaultState, action) => {
             sessionStorage.setItem('uid', -1)
             sessionStorage.setItem('email', '')
             sessionStorage.setItem('password', '')
+            sessionStorage.setItem('usertype', 'Regular')
             newState.login = sessionStorage.getItem('login')
             newState.username = sessionStorage.getItem('username')
             newState.uid = sessionStorage.getItem('uid')
             newState.email = sessionStorage.getItem('email')
             newState.email = sessionStorage.getItem('password')
+            newState.usertype = sessionStorage.getItem('usertype')
             break
 
         case "sidebar":

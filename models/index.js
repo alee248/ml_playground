@@ -82,10 +82,13 @@ db.Result.belongsTo(db.User, {
 })
 
 db.Comment.hasMany(db.Comment, {
+    foreignKey: 'ReplyTo',
+    targetKey: 'Id',
     as: 'ChildComment'
 })
 db.Comment.belongsTo(db.Comment, {
     foreignKey: 'ReplyTo',
+    targetKey: 'Id',
     as: 'ParentComment'
 })
 

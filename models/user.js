@@ -11,6 +11,10 @@ const UserModel = function (sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
+            Password: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             Email: {
                 type: DataTypes.STRING,
                 allowNull: false,
@@ -18,6 +22,11 @@ const UserModel = function (sequelize, DataTypes) {
                 validate: {
                     isEmail: true,
                 },
+            },
+            Type: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                defaultValue: 'Regular'
             },
             IsActive: {
                 type: DataTypes.BOOLEAN,

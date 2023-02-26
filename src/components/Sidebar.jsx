@@ -90,7 +90,7 @@ function Sidebar(props) {
                     <div className={`sidebar-logo${props.sidebarOpen ? '' : '-out'}`} style={{ width: '200px' }}>MLPlayground</div>
                 </div>
 
-                <div className={`login-box${props.sidebarOpen ? '' : '-closed'}`} onClick={handleUser}>
+                <div className={`login-box${props.usertype === 'Regular' ? '' : '-prime'}${props.sidebarOpen ? '' : '-closed'}`} onClick={handleUser}>
                     {!props.login ? 'login' : (
                         <div className={`userinfo${props.sidebarOpen ? '' : '-closed'}`}>{props.sidebarOpen ? props.username : props.username.charAt(0).toUpperCase()}</div>
                     )}
@@ -133,6 +133,7 @@ const mapStateToProps = (state) => {
         uid: state.uid,
         username: state.username,
         email: state.email,
+        usertype: state.usertype,
         sidebarOpen: parseInt(state.sidebarOpen),
         server: state.server
     }
