@@ -17,19 +17,31 @@ export default function TestModel(props) {
     const [uploaded, setUploaded] = useState(false)
     const [files, setFiles] = useState([])
     const [consent, setConsent] = useState(false)
+    const [sizeLimit, setSizeLimit] = useState(10)
+    const [currFileSize, setCurrFileSize] = useState(0)
 
     const handleConsent = e => {
         setConsent(e.target.checked)
+        setSizeLimit(e.target.checked ? 1024 : 10)
+    }
+
+    const filter_file_size = (file) => {
+        if (file.size + currFileSize > sizeLimit * 1024 * 1024) {
+            return false
+        } else {
+            setCurrFileSize(file.size + currFileSize)
+            return true
+        }
     }
 
     const handleAction = ({ file, onSuccess, onError }) => {
-        if (file.type === 'text/csv') {
+        if (file.type === 'text/csv' && filter_file_size(file)) {
             let tmp = files
             tmp.push(file)
             setFiles(tmp)
             onSuccess("ok")
         } else {
-            message.error('Please upload a .csv file!')
+            message.error('Please upload a .csv file within 10MB!')
             onError("Wrong format!")
         }
     }
@@ -74,6 +86,7 @@ export default function TestModel(props) {
         const { status, uid } = e.file;
         if (status === 'removed') {
             setFiles(curr => curr.filter(file => file.uid !== uid))
+            setCurrFileSize(curr => curr - e.file.size)
         }
         if (status !== 'uploading') {
             // console.log(e.file, e.fileList);
@@ -141,7 +154,8 @@ export default function TestModel(props) {
                         Click or drag file to this area to upload
                     </p>
                     <p className="ant-upload-hint">
-                        Support only for .csv files
+                        Support only for .csv files <br/>
+                        File size: {(currFileSize / 1024 / 1024).toFixed(1)}MB/{sizeLimit >= 1024 ? `${sizeLimit / 1024}GB` : `${sizeLimit}MB`}
                     </p>
                 </Dragger>
                 <div className={`data-saving-consent${uploaded ? '-close' : ''}`}>

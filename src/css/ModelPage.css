@@ -161,6 +161,7 @@
     margin-top: 0px;
     text-align: center;
     height: 0;
+    overflow: hidden;
     font-size: 10px;
     opacity: 0;
     transition: 0.3s;

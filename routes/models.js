@@ -97,7 +97,8 @@ router.post('/test/:mid/:uid', upload.any('files'), async (req, res) => {
             userId: result.dataValues.UserId,
             fileNames,
             fileContent
-        })
+        },
+        {removeOnComplete: true, removeOnFail: true, jobId: JSON.stringify(result.dataValues.Id)})
     }
 
     res.send({ "status": "done" })

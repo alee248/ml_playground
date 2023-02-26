@@ -15,7 +15,9 @@ const process_jobs = async (job) => {
     const { modelId, userId, fileNames, fileContent } = job.data
 
     console.log(`processing ${job.id}`)
-    console.log(job.data)
+
+    // check if this job has been removed
+    
 
     // try {
     //     let result = child_process.execSync(`conda run -n bot-annotation python3 python-scripts/${EaProjectId}.py ${FilePath}`)
