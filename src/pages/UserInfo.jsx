@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import '../css/UserInfo.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Table, message, Popconfirm, Popover } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
+import { Table, Popconfirm, Popover, Descriptions, Button } from 'antd';
+import { CaretDownOutlined } from '@ant-design/icons';
 
 const greeting = (hour) => {
     if (hour < 12 && hour > 5) {
@@ -30,6 +30,7 @@ function UserInfo(props) {
     const [comments, setComments] = useState([])
     const [historyLoading, setHistoryLoading] = useState(false);
     const [commentLoading, setCommentLoading] = useState(false);
+    const [profileFold, setProfileFold] = useState(false)
     const [historyFold, setHistoryFold] = useState(false)
     const [commentsFold, setCommentsFold] = useState(false)
 
@@ -184,6 +185,10 @@ function UserInfo(props) {
         //     })
         // }
     }
+    const handleFoldProfile = () => {
+        setCookie('hf', !profileFold, { expires: new Date(new Date().getTime + 2 * 3600 * 1000) })
+        setProfileFold(!profileFold)
+    }
 
     const handleFoldHistory = () => {
         setCookie('hf', !historyFold, { expires: new Date(new Date().getTime + 2 * 3600 * 1000) })
@@ -228,6 +233,7 @@ function UserInfo(props) {
 
         setHistoryLoading(true)
         setCommentLoading(true)
+
         axios({
             method: 'get',
             url: `${props.server}/api/user/getPendingJobs/${props.uid}`
@@ -324,20 +330,38 @@ function UserInfo(props) {
                     {greeting(new Date().getHours()) + props.username}!
                 </div>
 
+                <div className="ui-title" onClick={handleFoldProfile}>
+                    Profile
+                    <div className={`ui-title-icon${profileFold ? '-down' : ''}`}>
+                        <CaretDownOutlined />
+                    </div>
+                </div>
+                <div className={`ui-list${profileFold ? '-folded' : ''}`}>
+                    <Descriptions bordered>
+                        <Descriptions.Item label='Email'>{props.email}</Descriptions.Item>
+                        <Descriptions.Item label='Username'>{props.username}</Descriptions.Item>
+                    </Descriptions>
+                </div>
+
+                
+
                 <div className="ui-title" onClick={handleFoldHistory}>
                     History
                     <div className={`ui-title-icon${historyFold ? '-down' : ''}`}>
-                        <CaretRightOutlined />
+                        <CaretDownOutlined />
                     </div>
                 </div>
                 <div className={`ui-table${historyFold ? '-folded' : ''}`}>
-                    <Table pagination={{ position: ['bottomCenter'] }} tableLayout='auto' size='middle' loading={historyLoading} columns={historyColumns} dataSource={historyData} />
+                    <div className="ui-table-filter">
+                        filter
+                    </div>
+                    <Table pagination={{ position: ['bottomCenter'], defaultPageSize: 4 }} tableLayout='auto' size='middle' loading={historyLoading} columns={historyColumns} dataSource={historyData} />
                 </div>
 
                 <div className="ui-title" onClick={handleFoldComments}>
                     Comments
                     <div className={`ui-title-icon${commentsFold ? '-down' : ''}`}>
-                        <CaretRightOutlined />
+                        <CaretDownOutlined />
                     </div>
                 </div>
                 <div className={`ui-table${commentsFold ? '-folded' : ''}`}>

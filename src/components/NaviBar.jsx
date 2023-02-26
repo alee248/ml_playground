@@ -48,8 +48,8 @@ function NaviBar(props) {
                 {paths.map((path, index) => {
                     return (
                         <div key={index} style={{ display: 'flex' }}>
-                            <div className="right-arrow" hidden={index === 0 ? true : false}><RightOutlined /></div>
-                            <div className={`path${index === paths.length - 1 ? '-last' : ''}`} id={index} onClick={handleNavigate}>{isNaN(Number(path)) ? FirstLetterCap(path) : props.routeName}</div>
+                            <div className="right-arrow" hidden={index === 0 ? true : false} key={index}><RightOutlined /></div>
+                            <div className={`path${index === paths.length - 1 ? '-last' : ''}`} id={index} key={(index+1)*100} onClick={handleNavigate}>{isNaN(Number(path)) ? FirstLetterCap(path) : props.routeName}</div>
                         </div>
 
                     )

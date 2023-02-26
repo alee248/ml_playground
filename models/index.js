@@ -81,6 +81,14 @@ db.Result.belongsTo(db.User, {
     targetKey: 'Id'
 })
 
+db.Comment.hasMany(db.Comment, {
+    as: 'ChildComment'
+})
+db.Comment.belongsTo(db.Comment, {
+    foreignKey: 'ReplyTo',
+    as: 'ParentComment'
+})
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

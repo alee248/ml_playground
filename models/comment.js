@@ -23,6 +23,11 @@ const CommentModel = function (sequelize, DataTypes) {
                 type: DataTypes.DATE,
                 allowNull: false
             },
+            ReplyTo: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: -1
+            },
             Visibility: {
                 type: DataTypes.BOOLEAN,
                 allowNull: false,

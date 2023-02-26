@@ -53,7 +53,7 @@ export default function ModelCard(props) {
                         <div className="model-pg-project-more-btn" id={project.Id} onClick={handleMore}>More</div>
                     </div>
                 )
-            }) : ''}
+            }) : null}
         </div>
     )
 }

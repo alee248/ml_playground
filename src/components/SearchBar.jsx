@@ -18,7 +18,7 @@ function SearchBar(props) {
         setChanged(true)
     }
 
-    const handleInput = debounce(updateInput)
+    const handleInput = debounce(updateInput, 500)
 
     const handleSearch = () => {
         if (changed) {
@@ -51,7 +51,7 @@ function SearchBar(props) {
                 <div className="search-icon" style={{color: props.login ? '' : 'rgb(245, 245, 245)'}}>
                     <SearchOutlined />
                 </div>
-                <input id='search-input' className='search-space' placeholder={props.login ? 'Search the website' : ''} disabled={!props.login} onChange={handleInput} />
+                <input id='search-input' className='search-space' placeholder={props.login ? 'Search the website' : ''} disabled={!props.login} onChange={handleInput} onKeyDown={handleSearch} />
             </div>
 
             <div className="searchbar-btn">

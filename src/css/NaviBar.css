@@ -1,3 +1,5 @@
+@import url('./Home.css');
+
 .navibar-content {
     /* border: 1px solid black; */
     display: flex;
@@ -9,7 +11,8 @@
     font-size: 25px;
     font-family: var(--font-family);
     font-weight: 300;
-    color: var(--dark-gray)
+    color: var(--dark-gray);
+    animation: fade-in 0.5s;
 }
 
 .path {

@@ -7,18 +7,32 @@
     animation: fade-in 0.5s;
 }
 
+.ui-list {
+    margin-top: 10px;
+    max-height: 150px;
+    transition: 0.3s;
+}
+
+.ui-list-folded {
+    margin-top: 0px;
+    max-height: 0px;
+    overflow: hidden;
+    opacity: 0;
+    transition: 0.2s;
+}
+
 .ui-table {
     margin-top: 10px;
-    height: auto;
+    max-height: 700px;
     transition: 0.3s;
 }
 
 .ui-table-folded {
     margin-top: 0px;
-    height: 0px;
+    max-height: 0px;
     overflow: hidden;
     opacity: 0;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 .ui-title {
@@ -28,6 +42,8 @@
     top: 0px;
     padding: 10px;
     margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
     color: var(--subtitle-color);
     font-size: 25px;
     cursor: pointer;
@@ -37,14 +53,18 @@
 }
 
 .ui-title-icon {
+    height: 30px;
+    line-height: 30px;
     margin-left: 10px;
+    font-size: 20px;
     transform: rotate(0deg);
     transition: 0.3s;
 }
 
 .ui-title-icon-down {
     margin-left: 10px;
-    transform: rotate(90deg);
+    font-size: 20px;
+    transform: rotate(-90deg);
     transition: 0.3s;
 }
 

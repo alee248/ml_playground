@@ -82,12 +82,11 @@ function Login(props) {
                     if (user.Id > -1) {
                         // successfully logged in
                         props.handleLogin(user)
+                        navigate('/')
                     } else {
                         setPasswordAlert('Wrong email or password!')
                         setDisableLogin(true)
                     }
-                }).then(() => {
-                    navigate('/')
                 })
             }
         }

@@ -64,18 +64,6 @@
     background-color: rgb(245, 245, 245);
 }
 
-.sidebar-logo {
-    position: absolute;
-    text-align: center;
-    top: 45px;
-    left: 30px;
-    font-size: 25px;
-    font-family: var(--font-family);
-    font-weight: 300;
-    transition: opacity 0.7s ease-in-out;
-    color: var(--dark-gray)
-}
-
 @media screen and (max-width: 750px) {
     .layout-closed {
         width: 0px;
@@ -89,6 +77,19 @@
     }
 }
 
+.sidebar-logo {
+    position: absolute;
+    text-align: center;
+    top: 45px;
+    left: 30px;
+    font-size: 25px;
+    font-family: var(--font-family);
+    font-weight: 700;
+    transition: opacity 0.7s ease-in-out;
+    color: var(--dark-gray)
+}
+
+
 .sidebar-logo-out {
     position: absolute;
     text-align: center;
@@ -96,7 +97,7 @@
     left: 30px;
     font-size: 25px;
     font-family: var(--font-family);
-    font-weight: 300;
+    font-weight: 700;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
 }
