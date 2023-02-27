@@ -1,5 +1,9 @@
 @import url('Home.css');
 
+.user-name-prime {
+    color: rgb(255, 145, 0)
+}
+
 .comment-content {
     margin-top: 20px;
     animation: fade-in 0.5s;

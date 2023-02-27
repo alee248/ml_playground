@@ -76,7 +76,13 @@ export default function ChildComment(props) {
                     <div className='comments' key={comment.Id}>
                         <div className="main-comment">
                             <div className="main-commenter" id={comment.Id} onClick={handleShowReply}>
-                                @{comment.User.Username}{props.parentComment.Id === -1 ? '' : ` replies to @${props.parentComment.User.Username}`}
+                                <div className={`user-name${comment.User.Type==='Regular' ? '' : '-prime'}`}>@{comment.User.Username}</div>
+                                &nbsp;{props.parentComment.Id === -1 ? '' : 'replies to'}
+                                {
+                                    props.parentComment.Id === -1 ? '' : (
+                                        <div className={`user-name${comment.User.Type && comment.User.Type==='Regular' ? '' : '-prime'}`}>&nbsp;{`@${props.parentComment.User.Username}`}</div>
+                                    )
+                                }
                                 <div className={`comment-icon${replyFold[comment.Id] ? '-down' : ''}`} hidden={!comment.ChildComment || comment.ChildComment.length === 0}>
                                     <CaretDownOutlined />
                                 </div>
