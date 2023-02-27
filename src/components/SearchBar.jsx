@@ -18,29 +18,31 @@ function SearchBar(props) {
         setChanged(true)
     }
 
-    const handleInput = debounce(updateInput, 500)
+    const handleInput = debounce(updateInput, 200)
 
-    const handleSearch = () => {
-        if (changed) {
-            if (input !== '') {
-                setChanged(false)
-                navigate(`/search?input=${input}`)
-            } else {
-                setChanged(true)
-                if (window.location.pathname === '/search') {
-                    navigate('/')
+    const handleSearch = (e) => {
+        if (e.keyCode === 13) {
+            if (changed) {
+                if (input !== '') {
+                    setChanged(false)
+                    navigate(`/search?input=${input}`)
+                } else {
+                    setChanged(true)
+                    if (window.location.pathname === '/search') {
+                        navigate('/')
+                    }
                 }
-            }
-
-        } else {
-            if (input === '') {
-                navigate('/')
+    
             } else {
-                setInput('')
-                document.getElementById('search-input').value = ''
-                setChanged(true)
+                if (input === '') {
+                    navigate('/')
+                } else {
+                    setInput('')
+                    document.getElementById('search-input').value = ''
+                    setChanged(true)
+                }
+    
             }
-
         }
 
     }

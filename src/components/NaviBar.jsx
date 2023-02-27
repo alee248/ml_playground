@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { connect } from 'react-redux'
 import '../css/NaviBar.css'
 import { RightOutlined } from '@ant-design/icons';
 import axios from 'axios';
@@ -59,27 +58,4 @@ function NaviBar(props) {
     )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        login: state.login,
-        uid: state.uid,
-        username: state.username,
-        email: state.email,
-        server: state.server,
-        routeName: state.routeName
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleRoute(name) {
-            const action = {
-                type: 'setRouteName',
-                value: name
-            }
-            dispatch(action)
-        }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(NaviBar)
+export default NaviBar

@@ -46,6 +46,12 @@ db.ProjectModel.belongsTo(db.Project, {
     targetKey: 'Id'
 })
 
+db.Project.hasMany(db.Comment)
+db.Comment.belongsTo(db.Project, {
+    foreignKey: 'ProjectId',
+    targetKey: 'Id'
+})
+
 db.Model.hasMany(db.ProjectModel)
 db.ProjectModel.belongsTo(db.Model, {
     foreignKey: 'ModelId',

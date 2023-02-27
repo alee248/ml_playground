@@ -16,7 +16,7 @@ function Home(props) {
                 </div>
                 <div className="main-page">
                     <SearchBar />
-                    <NaviBar />
+                    <NaviBar handleRoute={props.handleRoute} routeName={props.routeName}/>
                     <div className="outlet">
                         <Outlet />
                     </div>
@@ -35,8 +35,21 @@ const mapStateToProps = (state) => {
         uid: state.uid,
         username: state.username,
         sidebarOpen: state.sidebarOpen,
-        email: state.email
+        email: state.email,
+        routeName: state.routeName
     }
 }
 
-export default connect(mapStateToProps)(Home)
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleRoute(name) {
+            const action = {
+                type: 'setRouteName',
+                value: name
+            }
+            dispatch(action)
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

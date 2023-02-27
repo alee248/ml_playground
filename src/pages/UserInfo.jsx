@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import '../css/UserInfo.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Table, Popconfirm, Popover, Descriptions, Button } from 'antd';
+import { Table, Popconfirm, Popover, Descriptions } from 'antd';
 import { CaretDownOutlined } from '@ant-design/icons';
+import getDate from '../components/GetDate'
 
 const greeting = (hour) => {
     if (hour < 12 && hour > 5) {
@@ -33,17 +34,6 @@ function UserInfo(props) {
     const [profileFold, setProfileFold] = useState(true)
     const [historyFold, setHistoryFold] = useState(true)
     const [commentsFold, setCommentsFold] = useState(true)
-
-    const getDate = d => {
-        let res = ''
-        let datetime = new Date(d)
-        let year = datetime.getFullYear()
-        let month = datetime.getMonth() + 1
-        let day = datetime.getDate()
-        let time = datetime.toString().substring(16, 21)
-
-        return `${month}/${day}/${year.toString().substring(2)} ${time}`
-    }
 
     const handleSort = (tablename, fieldname) => {
         switch (tablename) {
@@ -311,7 +301,7 @@ function UserInfo(props) {
                     if (res.data[i].Visibility) {
                         data.push({
                             key: res.data[i].Id,
-                            comment: res.data[i].Comment,
+                            comment: res.data[i].Comment.length > 15 ? res.data[i].Comment.slice(0, 15) : res.data[i].Comment,
                             model: (<a href={`/models/${res.data[i].Model.Id}`}>{res.data[i].Model.Name}</a>),
                             date: getDate(res.data[i].Datetime),
                             action: (<div className='com-btn-area'>
@@ -323,6 +313,11 @@ function UserInfo(props) {
 
                 }
             }
+
+            data.sort((a, b) => {
+                return new Date(b.date) - new Date(a.date)
+            })
+
             setComments(data)
             setCommentLoading(false)
         })
@@ -369,7 +364,7 @@ function UserInfo(props) {
                     </div>
                 </div>
                 <div className={`ui-table${commentsFold ? '-folded' : ''}`}>
-                    <Table pagination={{ position: ['bottomCenter'] }} tableLayout='auto' size='middle' loading={commentLoading} columns={commentsColumns} dataSource={comments} />
+                    <Table pagination={{ position: ['bottomCenter'], defaultPageSize: 4 }} tableLayout='auto' size='middle' loading={commentLoading} columns={commentsColumns} dataSource={comments} />
                 </div>
             </div>
         </>

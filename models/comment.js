@@ -14,6 +14,12 @@ const CommentModel = function (sequelize, DataTypes) {
             ModelId: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
+                defaultValue: -1
+            },
+            ProjectId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                defaultValue: -1
             },
             Comment: {
                 type: DataTypes.TEXT,

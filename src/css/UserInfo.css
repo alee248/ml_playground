@@ -75,7 +75,7 @@
 }
 
 .ui-greeting {
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     color: var(--blue);
     width: auto;
     font-size: 40px;
@@ -83,7 +83,7 @@
 }
 
 .ui-greeting-prime {
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     background: var(--lg-dark-gold);
     background-clip: text;
     color: transparent;

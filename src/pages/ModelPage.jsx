@@ -8,6 +8,7 @@ import Tab from '@mui/material/Tab';
 import axios from 'axios'
 import ModelCard from '../components/ModelCard';
 import TestModel from '../components/TestModel';
+import Comment from '../components/Comment'
 
 
 function ModelPage(props) {
@@ -52,6 +53,7 @@ function ModelPage(props) {
                     <Tabs value={tab} onChange={handleSwitchTab}>
                         <Tab label="Model Card" sx={{ borderRadius: '10px 10px 0px 0px' }} />
                         <Tab label="Test Model" sx={{ borderRadius: '10px 10px 0px 0px' }} />
+                        <Tab label="Comments" sx={{ borderRadius: '10px 10px 0px 0px' }} />
                     </Tabs>
                 </div>
                 <div className="model-card" hidden={tab === 0 ? false : true}>
@@ -59,6 +61,9 @@ function ModelPage(props) {
                 </div>
                 <div className="test-model" hidden={tab === 1 ? false : true}>
                     <TestModel model={model} server={props.server} uid={props.uid} />
+                </div>
+                <div className="model-comment" hidden={tab === 2 ? false : true}>
+                    <Comment model={model} server={props.server} uid={props.uid} username={props.username} email={props.email}/>
                 </div>
 
             </div>

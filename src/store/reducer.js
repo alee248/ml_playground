@@ -4,7 +4,7 @@ let uid = sessionStorage.getItem('uid') ? sessionStorage.getItem('uid') : -1
 let email = sessionStorage.getItem('email') ? sessionStorage.getItem('email') : null
 let password = sessionStorage.getItem('password') ? sessionStorage.getItem('password') : null
 let usertype = sessionStorage.getItem('usertype') ? sessionStorage.getItem('usertype') : 'Regular'
-let sidebarOpen = sessionStorage.getItem('sidebarOpen') ? sessionStorage.getItem('sidebarOpen') : 1
+let sidebarOpen = sessionStorage.getItem('sidebarOpen') ? sessionStorage.getItem('sidebarOpen') : '1'
 
 const defaultState = {
     login,
