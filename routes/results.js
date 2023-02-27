@@ -38,17 +38,17 @@ router.get('/delete/:rid', async (req, res) => {
             attributes: ['Status']
         })
         if (result && result.Status !== 'Processing') {
+            const mlQueue = new Queue("mlqueue", redisConfiguration)
+            const job = await mlQueue.getJob(rid)
+            if (job) {
+                await job.remove()
+            }
             await db.Result.destroy({
                 where: {
                     Id: rid
                 },
                 lock: true
             })
-            const mlQueue = new Queue("mlqueue", redisConfiguration)
-            const job = await mlQueue.getJob(rid)
-            if (job) {
-                await job.remove()
-            }
             res.send({ result: 'succeed' })
         }
     } catch (err) {

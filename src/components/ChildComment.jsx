@@ -68,6 +68,10 @@ export default function ChildComment(props) {
         setReplyTo({cid, username})
     }
 
+    const handleDeleteComment = (e) => {
+        console.log(e.target.id)
+    }
+
 
     return (
         <>
@@ -102,6 +106,9 @@ export default function ChildComment(props) {
                                 </div>
                                 <div className="comment-reply-btn" id={comment.Id} onClick={() => handleReply(comment.Id, comment.User.Username)}>
                                     Reply
+                                </div>
+                                <div className="comment-reply-btn" id={comment.Id} onClick={handleDeleteComment}>
+                                    Delete
                                 </div>
                             </div>
 
